@@ -1,0 +1,43 @@
+CREATE DATABASE prev_db
+CHARACTER SET utf8
+COLLATE utf8_general_ci;
+
+CREATE TABLE prev_db.users(
+user_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+user_name VARCHAR(150) NOT NULL,
+first_name VARCHAR(50) NOT NULL,
+last_name VARCHAR(50) NOT NULL,
+email VARCHAR(254) NOT NULL,
+password VARCHAR(150) NOT NULL,
+birth DATE NOT NULL,
+gender CHAR(1) NOT NULL,
+ver_code VARCHAR(150) NOT NULL,
+verified TINYINT DEFAULT 0,
+setup_time DATETIME NOT NULL,
+PRIMARY KEY (user_id));
+
+CREATE TABLE prev_db.topics(
+topic_id INT UNSIGNED NOT NULL AUTO_INCREMENT, 
+topics varchar(150) NOT NULL,
+PRIMARY KEY(topic_id));
+
+CREATE TABLE prev_db.media(
+media_id INT UNSIGNED NOT NULL AUTO_INCREMENT, 
+media varchar(150) NOT NULL,
+PRIMARY KEY(media_id));
+
+CREATE TABLE prev_db.followers(
+follower_id, 
+following_id, 
+PRIMARY KEY (follower_id, following_id));
+
+CREATE TABLE prev_db.posts(
+message_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+user_id INT UNSIGNED,
+topic_id INT UNSIGNED,
+media_id INT UNSIGNED,
+message TEXT,
+link_url VARCHAR(1000),
+visibility INT UNSIGNED,
+post_time DATETIME NOT NULL,
+PRIMARY KEY (message_id));
