@@ -94,7 +94,7 @@ password by following the link below.
 
 Your Username: $first $last
 
-Activate your account: http://localhost/my_projects/bootstrap_website/accountverify.php?v=$ver&e=$e
+Activate your account: http://localhost/my_projects/hoheart_website/accountverify.php?v=$ver&e=$e
 
 If you have any questions, please contact help@dedalo.com.
 

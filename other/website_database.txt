@@ -27,8 +27,8 @@ media varchar(150) NOT NULL,
 PRIMARY KEY(media_id));
 
 CREATE TABLE prev_db.followers(
-follower_id, 
-following_id, 
+follower_id INT UNSIGNED, 
+following_id INT UNSIGNED, 
 PRIMARY KEY (follower_id, following_id));
 
 CREATE TABLE prev_db.posts(
