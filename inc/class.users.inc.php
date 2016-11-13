@@ -234,19 +234,35 @@ EMAIL;
   public function createPost()
   {
     $post = trim($_POST['post']);
+
+    // The Regular Expression filter
+    $reg_exUrl = "/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/";
+
+    // Check if there is a url in the text
+    if(preg_match($reg_exUrl, $post, $url)) {
+
+       // make the urls hyper links
+       $final_text = preg_replace($reg_exUrl, '', $post);
+
+    } else {
+
+       // if no urls in the text just return the text
+       echo $post;
+
+    }
+
     $topic = trim($_POST['topic']);
     $media = trim($_POST['media']);
-    $url = trim($_POST['url']);
     $userID = $_SESSION["user_id"];
 
     $sql = "INSERT INTO posts(message, topic_id, media_id, link_url, user_id, post_time)
             VALUES(:post, :topic, :media, :url, :user, NOW())";
 
     if($stmt = $this->_db->prepare($sql)) {
-      $stmt->bindParam(":post", $post, PDO::PARAM_STR);
+      $stmt->bindParam(":post", $final_text, PDO::PARAM_STR);
       $stmt->bindParam(":topic", $topic, PDO::PARAM_STR);
       $stmt->bindParam(":media", $media, PDO::PARAM_STR);
-      $stmt->bindParam(":url", $url, PDO::PARAM_STR);
+      $stmt->bindParam(":url", $url[0], PDO::PARAM_STR);
       $stmt->bindParam(":user", $userID, PDO::PARAM_STR);
       $stmt->execute();
       $stmt->closeCursor();
