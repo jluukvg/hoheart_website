@@ -247,7 +247,7 @@ EMAIL;
     } else {
 
        // if no urls in the text just return the text
-       echo $post;
+       $final_text = $post;
 
     }
 
