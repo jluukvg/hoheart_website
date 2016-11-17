@@ -8,8 +8,8 @@
         $users = new dedaloUsers($db);
         echo $users->createAccount();
     else:
+echo hola;
  ?>
-
 
 
     <div class="container">
