@@ -190,7 +190,7 @@
             <div class="row">
                 <div class="col-sm-4">
                     <div>
-                        <div style="background-color:#F5F5F5; border-radius: 28px; box-shadow: 2px 2px 7px #666666;"><a href=posts.php>
+                        <div style="background-color:#F5F5F5; border-radius: 28px; box-shadow: 2px 2px 7px #666666;"><a href=posts.php?topic=4>
                             <div class="panel-body"><img src="images/food.jpg" class="img-responsive" style="width:100%" alt="Image">
                                 <h1 style="text-align:center;">FOOD</h1>
                             </a>
@@ -199,9 +199,10 @@
                     </div>
                 </div>
                 <div class="col-sm-4">
-                    <div style="background-color:#F5F5F5; border-radius: 28px; box-shadow: 2px 2px 7px #666666;">
+                    <div style="background-color:#F5F5F5; border-radius: 28px; box-shadow: 2px 2px 7px #666666;"><a href=posts.php?topic=5>
                         <div class="panel-body"><img src="images/restaurants.jpg" class="img-responsive" style="width:100%" alt="Image">
                             <h1 style="text-align:center;">RESTAURANTS</h1>
+                        </a>
                         </div>
                     </div>
                 </div>

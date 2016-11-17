@@ -1,10 +1,26 @@
 <?php
     include_once "common/base.php";
     include_once "common/header.php";
+    
+    if(isset($_SESSION['LoggedIn']) && isset($_SESSION['Username'])):
+    
+        include_once 'inc/class.posts.inc.php';
+        $posts = new hoheartPosts($db);
+        $posts_array = $posts->loadPostsByTopic();
+        list($UID, $MID, $MESS, $URL, $PT) = $posts->loadPostsByTopic();
+        
+    else:
+        echo "Something went wrong!";
+
+    endif;
 ?>
 
-
-    <p>Food</p>
+    <p><?php echo "user id: $UID \n"; ?></p>
+    <p><?php echo "media id: $MID \n"; ?></p>
+    <p><?php echo "message: $MESS \n"; ?></p>
+    <p><?php echo "URL: $URL \n"; ?></p>
+    <p><?php echo "post time: $PT \n"; ?></p>
+    <p><?php echo $_GET["topic"]; ?></p>
 
     <div class="container">
         <div class="row">
