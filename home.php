@@ -242,6 +242,40 @@
             print_r($_SESSION);
             ?>
         </div><br>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3">
+                    <div>
+                        <div style="background-color:#F5F5F5; border-radius: 28px; box-shadow: 2px 2px 7px #666666;">
+                            <div class="panel-body">
+                                <h1 style="text-align:center;">Articles</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div style="background-color:#F5F5F5; border-radius: 28px; box-shadow: 2px 2px 7px #666666;">
+                        <div class="panel-body">
+                            <h1 style="text-align:center;">Blogs</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div style="background-color:#F5F5F5; border-radius: 28px; box-shadow: 2px 2px 7px #666666;">
+                        <div class="panel-body">
+                            <h1 style="text-align:center;">Videos</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div style="background-color:#F5F5F5; border-radius: 28px; box-shadow: 2px 2px 7px #666666;">
+                        <div class="panel-body">
+                            <h1 style="text-align:center;">Podcasts</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><br>
 
 
         <script type="text/javascript" src="toggle_script.js"></script>
