@@ -108,7 +108,7 @@ class hoheartPosts
                 $sql = "SELECT message_id, user_id, media_id, message, link_url, post_time
                 FROM posts
                 WHERE topic_id=:topic AND message IS NOT NULL
-                ORDER BY post_time
+                ORDER BY post_time DESC
                 LIMIT :limit
                 OFFSET :offset";    
             
