@@ -5,165 +5,147 @@
 
     <body>
 
-        <div class="container">
-            <div class="comment-box">
-                <?php
-                  if(!empty($_POST['post'])):
-                        include_once "inc/class.users.inc.php";
-                        $users = new dedaloUsers($db);
-                        echo $users->createPost();
-                    else:
-                 ?>
 
-                    <div class="row">
 
-                        <div class="col-md-3"></div>
-                        <div class="col-md-6">
-                            <div>
-                                <div class="status-upload">
-                                    <form role="form" method="post">
-                                        <textarea placeholder="What would you like to share?" name="post" id="post"></textarea>
-                                        <ul>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4 post-box">
+                    <form role="form" method="post">
+                        <?php
+                            if(!empty($_POST['post'])):
+                            include_once "inc/class.users.inc.php";
+                            $users = new dedaloUsers($db);
+                            echo $users->createPost();
+                            else:
+                        ?>
+                            <textarea placeholder="What would you like to share?" name="post" id="post"></textarea>
 
-                                            <li>
-                                                <select class="selectpicker" data-width="100%" name="topic" title="Topic">
-                                                    <option value="1">Movies</option>
-                                                    <option value="2">Music</option>
-                                                    <option value="3">Events</option>
-                                                    <option value="4">Food</option>
-                                                    <option value="5">Restaurants</option>
-                                                    <option value="6">Sports</option>
-                                                    <option value="7">Books</option>
-                                                    <option value="8">Fashion</option>
-                                                    <option value="9">Wanderlust</option>
-                                                    <option value="10">Funny</option>
-                                                    <option value="11">Interesting</option>
-                                                    <option value="12">Lifestyle</option>
-                                                </select>
-                                            </li>
-                                        </ul>
-                                        <ul>
+                            <div class="form-group post-options">
+                                <select class="selectpicker post-dropdown" data-width="25%" name="topic" title="Topic">>
+                                    <option value="1">Movies</option>
+                                    <option value="2">Music</option>
+                                    <option value="3">Events</option>
+                                    <option value="4">Food</option>
+                                    <option value="5">Restaurants</option>
+                                    <option value="6">Sports</option>
+                                    <option value="7">Books</option>
+                                    <option value="8">Fashion</option>
+                                    <option value="9">Wanderlust</option>
+                                    <option value="10">Funny</option>
+                                    <option value="11">Interesting</option>
+                                    <option value="12">Lifestyle</option>
+                                </select>
+                                <select class="selectpicker post-dropdown" data-width="25%" name="media" title="Media">
+                                    <option value="1">Video</option>
+                                    <option value="2">Blog</option>
+                                    <option value="3">Podcast</option>
+                                    <option value="4">Article</option>
+                                </select>
+                                <button type="submit" class="btn btn-success pull-right" id="share_button"> Share</button>
+                                <div class="liveurl">
+                                    <div class="close" title="Remove"></div>
+                                    <div class="inner">
 
-                                            <li>
-                                                <select class="selectpicker" data-width="100%" name="media" title="Media">
-                                                    <option value="1">Video</option>
-                                                    <option value="2">Blog</option>
-                                                    <option value="3">Podcast</option>
-                                                    <option value="4">Article</option>
-                                                </select>
-                                            </li>
-                                        </ul>
-                                        <button type="submit" class="btn btn-success green" data-toggle="tooltip" data-placement="bottom" title="Hooray!"><i class="fa fa-share"></i> Share</button>
-                                        <div class="liveurl">
-                                            <div class="close" title="Remove"></div>
-                                            <div class="inner">
-
-                                                <div class="details">
-                                                    <div class="info">
-                                                        <div class="title"> </div>
-                                                        <div class="image"> </div>
-                                                        <div class="description"> </div>
-                                                        <div class="url" title="url"> </div>
-                                                    </div>
-
-                                                </div>
-
+                                        <div class="details">
+                                            <div class="info">
+                                                <div class="title"> </div>
+                                                <div class="image"> </div>
+                                                <div class="description"> </div>
+                                                <div class="url" title="url"> </div>
                                             </div>
-                                        </div>
-                                    </form>
-                                </div>
-                                <!-- Status Upload  -->
-                            </div>
-                            <!-- Widget Area -->
-                        </div>
-                        <div class="col-md-3"></div>
 
-                    </div>
-                    <?php
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <?php
                             endif;
                         ?>
+                    </form>
+                </div>
+                <div class="col-md-4"></div>
+
+                <script src="jquery.liveurl.js">
+                </script>
+                <script>
+                    var curImages = new Array();
+
+                    $('textarea').liveUrl({
+                        // para empezar a mostrar el "loading"
+                        loadStart: function () {
+                            $('.liveurl-loader').show();
+                        },
+                        // para dejar de mostrar el "loading"
+                        loadEnd: function () {
+                            $('.liveurl-loader').hide();
+                        },
+                        // si se encuentra una URL válida, empieza el proceso principal
+                        success: function (data) {
+                            var output = $('.liveurl');
+                            output.find('.title').text(data.title);
+                            output.find('.description').text(data.description);
+                            output.find('.url').text(data.url);
+                            output.find('.image').empty();
+
+                            // esto es sólo para cerrar el liveURL picándole a la X
+                            output.find('.close').one('click', function () {
+                                var liveUrl = $(this).parent();
+                                liveUrl.hide('fast');
+                                liveUrl.find('.video').html('').hide();
+                                liveUrl.find('.image').html('');
+                                liveUrl.find('.controls .prev').addClass('inactive');
+                                liveUrl.find('.controls .next').addClass('inactive');
+                                liveUrl.find('.thumbnail').hide();
+                                liveUrl.find('.image').hide();
+
+                                $('textarea').trigger('clear');
+                                curImages = new Array();
+                            });
+
+                            output.show('fast');
+
+                        },
+                        // sin esta función no se puede(n) mostrar la(s) imagen(es)
+                        addImage: function (image) {
+                            var output = $('.liveurl');
+                            var jqImage = $(image);
+                            jqImage.attr('alt', 'Preview');
+
+                            if ((image.width / image.height) > 16 ||
+                                (image.height / image.width) > 9) {
+                                // we dont want extra large images...
+                                return false;
+                            }
+
+                            curImages.push(jqImage.attr('src'));
+                            output.find('.image').append(jqImage);
+
+
+                            if (curImages.length == 1) {
+                                // first image...
+
+                                output.find('.thumbnail .current').text('1');
+                                output.find('.thumbnail').show();
+                                output.find('.image').show();
+                                jqImage.addClass('active');
+
+                            }
+
+                            if (curImages.length == 2) {
+                                output.find('.controls .next').removeClass('inactive');
+                            }
+
+                            output.find('.thumbnail .max').text(curImages.length);
+                        }
+                    });
+                </script>
             </div>
-
-
-            <script src="jquery.liveurl.js">
-            </script>
-            <script>
-                var curImages = new Array();
-
-                $('textarea').liveUrl({
-                    // para empezar a mostrar el "loading"
-                    loadStart: function () {
-                        $('.liveurl-loader').show();
-                    },
-                    // para dejar de mostrar el "loading"
-                    loadEnd: function () {
-                        $('.liveurl-loader').hide();
-                    },
-                    // si se encuentra una URL válida, empieza el proceso principal
-                    success: function (data) {
-                        var output = $('.liveurl');
-                        output.find('.title').text(data.title);
-                        output.find('.description').text(data.description);
-                        output.find('.url').text(data.url);
-                        output.find('.image').empty();
-
-                        // esto es sólo para cerrar el liveURL picándole a la X
-                        output.find('.close').one('click', function () {
-                            var liveUrl = $(this).parent();
-                            liveUrl.hide('fast');
-                            liveUrl.find('.video').html('').hide();
-                            liveUrl.find('.image').html('');
-                            liveUrl.find('.controls .prev').addClass('inactive');
-                            liveUrl.find('.controls .next').addClass('inactive');
-                            liveUrl.find('.thumbnail').hide();
-                            liveUrl.find('.image').hide();
-
-                            $('textarea').trigger('clear');
-                            curImages = new Array();
-                        });
-
-                        output.show('fast');
-
-                    },
-                    // sin esta función no se puede(n) mostrar la(s) imagen(es)
-                    addImage: function (image) {
-                        var output = $('.liveurl');
-                        var jqImage = $(image);
-                        jqImage.attr('alt', 'Preview');
-
-                        if ((image.width / image.height) > 16 ||
-                            (image.height / image.width) > 9) {
-                            // we dont want extra large images...
-                            return false;
-                        }
-
-                        curImages.push(jqImage.attr('src'));
-                        output.find('.image').append(jqImage);
-
-
-                        if (curImages.length == 1) {
-                            // first image...
-
-                            output.find('.thumbnail .current').text('1');
-                            output.find('.thumbnail').show();
-                            output.find('.image').show();
-                            jqImage.addClass('active');
-
-                        }
-
-                        if (curImages.length == 2) {
-                            output.find('.controls .next').removeClass('inactive');
-                        }
-
-                        output.find('.thumbnail .max').text(curImages.length);
-                    }
-                });
-            </script>
         </div>
-        <br>
+
 
         <div class="container">
-            
             <div class="row">
 
                 <div class="col-md-4 col-sm-6 col-xs-12 topic-box">
@@ -199,7 +181,7 @@
                         </a>
                     </div>
                 </div>
-                
+
             </div>
 
             <div class="row">
@@ -236,7 +218,7 @@
                         </a>
                     </div>
                 </div>
-                
+
             </div>
 
             <div class="row">
@@ -273,7 +255,7 @@
                         </a>
                     </div>
                 </div>
-                
+
             </div>
 
         </div>
@@ -293,7 +275,6 @@
             });
         </script>
 
-        <br>
         <div class="container">
             <div class="row">
                 <div class="col-sm-3">

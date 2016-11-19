@@ -25,6 +25,7 @@
 
     <!-- PROBANDO -->
     <link rel="stylesheet" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css">
+    <link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One|Oswald|Patua+One" rel="stylesheet">
 
 </head>
 
