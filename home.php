@@ -163,105 +163,136 @@
         <br>
 
         <div class="container">
+            
             <div class="row">
-                <div class="col-sm-4">
-                    <div style="background-color:#F5F5F5; border-radius: 28px; box-shadow: 2px 2px 7px #666666;">
-                        <a href=posts.php?topic=1>
-                            <div class="panel-body"><img src="images/movies.jpg" class="img-responsive" style="width:100%;" alt="Image">
-                                <h1 style="text-align:center;">MOVIES</h1>
-                        </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div style="background-color:#F5F5F5; border-radius: 28px; box-shadow: 2px 2px 7px #666666;">
-                        <a href=posts.php?topic=2>
-                            <div class="panel-body"><img src="images/music.jpg" class="img-responsive" style="width:100%" alt="Image">
-                                <h1 style="text-align:center;">MUSIC</h1>
-                        </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div style="background-color:#F5F5F5; border-radius: 28px; box-shadow: 2px 2px 7px #666666;">
-                        <a href=posts.php?topic=3>
-                            <div class="panel-body"><img src="images/events.jpg" class="img-responsive" style="width:100%" alt="Image">
-                                <h1 style="text-align:center;">EVENTS</h1>
-                        </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <br>
 
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-4">
-                    <div style="background-color:#F5F5F5; border-radius: 28px; box-shadow: 2px 2px 7px #666666;">
-                        <a href=posts.php?topic=4>
-                            <div class="panel-body"><img src="images/food.jpg" class="img-responsive" style="width:100%" alt="Image">
-                                <h1 style="text-align:center;">FOOD</h1>
+                <div class="col-md-4 col-sm-6 col-xs-12 topic-box">
+                    <div class="thumbnail text-center topic-image">
+                        <a href="posts.php?topic=1">
+                            <img src="images/movies.jpg" alt="" height="600" width="700">
+                            <div class="caption" id="topic-caption">
+                                <p>Movies</p>
+                            </div>
                         </a>
-                        </div>
                     </div>
                 </div>
-                <div class="col-sm-4">
-                    <div style="background-color:#F5F5F5; border-radius: 28px; box-shadow: 2px 2px 7px #666666;">
-                        <a href=posts.php?topic=5>
-                            <div class="panel-body"><img src="images/restaurants.jpg" class="img-responsive" style="width:100%" alt="Image">
-                                <h1 style="text-align:center;">RESTAURANTS</h1>
-                        </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div style="background-color:#F5F5F5; border-radius: 28px; box-shadow: 2px 2px 7px #666666;">
-                        <a href=posts.php?topic=6>
-                            <div class="panel-body"><img src="images/sports.jpg" class="img-responsive" style="width:100%" alt="Image">
-                                <h1 style="text-align:center;">SPORTS</h1>
-                        </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <br>
 
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-4">
-                    <div style="background-color:#F5F5F5; border-radius: 28px; box-shadow: 2px 2px 7px #666666;">
-                        <a href=posts.php?topic=7>
-                            <div class="panel-body"><img src="images/books.jpg" class="img-responsive" style="width:100%;" alt="Image">
-                                <h1 style="text-align:center;">BOOKS</h1>
+
+                <div class="col-md-4 col-sm-6 col-xs-12 topic-box">
+                    <div class="thumbnail text-center topic-image">
+                        <a href="posts.php?topic=2">
+                            <img src="images/music.jpg" alt="" height="600" width="700">
+                            <div class="caption" id="topic-caption">
+                                <p>Music</p>
+                            </div>
                         </a>
-                        </div>
                     </div>
                 </div>
-                <div class="col-sm-4">
-                    <div style="background-color:#F5F5F5; border-radius: 28px; box-shadow: 2px 2px 7px #666666;">
-                        <a href=posts.php?topic=8>
-                            <div class="panel-body"><img src="images/fashion.jpg" class="img-responsive" style="width:100%" alt="Image">
-                                <h1 style="text-align:center;">FASHION</h1>
+
+                <div class="col-md-4 col-sm-6 col-xs-12 topic-box">
+                    <div class="thumbnail text-center topic-image">
+                        <a href="posts.php?topic=3">
+                            <img src="images/events.jpg" alt="" height="600" width="700">
+                            <div class="caption" id="topic-caption">
+                                <p>Events</p>
+                            </div>
                         </a>
-                        </div>
                     </div>
                 </div>
-                <div class="col-sm-4">
-                    <div style="background-color:#F5F5F5; border-radius: 28px; box-shadow: 2px 2px 7px #666666;">
-                        <a href=posts.php?topic=9>
-                            <div class="panel-body"><img src="images/wanderlust.jpg" class="img-responsive" style="width:100%" alt="Image">
-                                <h1 style="text-align:center;">WANDERLUST</h1>
-                        </a>
-                        </div>
-                    </div>
-                </div>
+                
             </div>
-            <?php
-            print_r($_SESSION);
-            ?>
+
+            <div class="row">
+
+                <div class="col-md-4 col-sm-6 col-xs-12 topic-box">
+                    <div class="thumbnail text-center topic-image">
+                        <a href="posts.php?topic=4">
+                            <img src="images/food.jpg" alt="" height="600" width="700">
+                            <div class="caption" id="topic-caption">
+                                <p>Food</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-sm-6 col-xs-12 topic-box">
+                    <div class="thumbnail text-center topic-image">
+                        <a href="posts.php?topic=5">
+                            <img src="images/restaurants.jpg" alt="" height="600" width="700">
+                            <div class="caption" id="topic-caption">
+                                <p>Restaurants</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-sm-6 col-xs-12 topic-box">
+                    <div class="thumbnail text-center topic-image">
+                        <a href="posts.php?topic=6">
+                            <img src="images/sports.jpg" alt="" height="600" width="700">
+                            <div class="caption" id="topic-caption">
+                                <p>Sports</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-4 col-sm-6 col-xs-12 topic-box">
+                    <div class="thumbnail text-center topic-image">
+                        <a href="posts.php?topic=7">
+                            <img src="images/books.jpg" alt="" height="600" width="700">
+                            <div class="caption" id="topic-caption">
+                                <p>Books</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-sm-6 col-xs-12 topic-box">
+                    <div class="thumbnail text-center topic-image">
+                        <a href="posts.php?topic=8">
+                            <img src="images/fashion.jpg" alt="" height="600" width="700">
+                            <div class="caption" id="topic-caption">
+                                <p>Fashion</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-sm-6 col-xs-12 topic-box">
+                    <div class="thumbnail text-center topic-image">
+                        <a href="posts.php?topic=9">
+                            <img src="images/wanderlust.jpg" alt="" height="600" width="700">
+                            <div class="caption" id="topic-caption">
+                                <p>Wanderlust</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+            </div>
+
         </div>
+
+        <script>
+            $(document).ready(function () {
+                $(".topic-box").hover(function () {
+                        $(this).stop().animate({
+                            "opacity": "1.0"
+                        }, "fast");
+                    },
+                    function () {
+                        $(this).stop().animate({
+                            "opacity": "0.5"
+                        }, "fast");
+                    });
+            });
+        </script>
+
         <br>
         <div class="container">
             <div class="row">
@@ -296,9 +327,12 @@
                     </div>
                 </div>
             </div>
-        </div><br>
+        </div>
+        <br>
 
-
-        <script type="text/javascript" src="toggle_script.js"></script>
+        <?php
+            print_r($_SESSION);
+            ?>
+            <script type="text/javascript" src="toggle_script.js"></script>
     </body>
     <?php include_once "common/footer.php"; ?>
