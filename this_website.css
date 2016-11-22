@@ -1,7 +1,7 @@
 /* CSS used here will be applied after bootstrap.css */
 
 body {
-    background: #fafafa;
+    background: rgb(245, 0, 0);
     padding-top: 100px;
 }
 
@@ -283,6 +283,9 @@ body {
     margin-top: 10px;
 }
 
+
+/* This is for the posts in the topic pages */
+
 .post_website .stuff {
     float: left;
     overflow: hidden;
@@ -315,11 +318,6 @@ body {
 
 /* This is for the topic captions */
 
-.thumbnail {
-    position: inherit;
-    height: auto;
-}
-
 #topic-caption {
     position: absolute;
     top: 26%;
@@ -333,7 +331,7 @@ body {
 
 .topic-box {
     height: auto;
-    opacity: .5;
+    opacity: 1.0;
 }
 
 .topic-image {
@@ -359,16 +357,16 @@ body {
     padding: 5px;
     border-style: solid;
     border-width: 1px;
-    border-color: rgba(239, 239, 239, 0.71);
+    border-color: #fafafa;
     border-radius: 5px;
-    background-color: rgba(239, 239, 239, 0.71);
+    background-color: #fafafa;
     height: auto;
     margin: 15px;
 }
 
 .post-box form textarea {
     font-size: 15px;
-    height: 80px;
+    height: 40px;
     width: 100%;
     resize: none;
     border-radius: 5px;
@@ -389,3 +387,45 @@ body {
 
 
 /* --------------------------------- */
+
+#index-logo {
+    background-color: white;
+    padding: 40px 40px 40px 40px;
+    border: none;
+    /*border-radius: 28px;
+    box-shadow: 2px 2px 7px;
+    margin-right: 40px;*/
+}
+
+#index-logo-caption {
+    position: absolute;
+    top: 27%;
+    left: 0;
+    width: 100%;
+    font-size: 70px;
+    font-family: 'Patua One', 'Oswald', sans-serif;
+    text-shadow: -0.5px 0 white, 0 0.5px white, 0.5px 0 white, 0 -0.5px white;
+    color: rgb(41, 26, 26);
+}
+
+#index-logo .thumbnail {
+    display: absolute;
+    max-width: 100%;
+    max-height: 100%;
+    position: relative;
+    background-color: white;
+    margin-bottom: 0px;
+    border: none;
+}
+
+#signup-form {
+    background-color: #F5F5F5;
+    border-radius: 28px;
+    box-shadow: 2px 2px 7px #666666;
+}
+
+.media-box {
+    font-family: 'Patua One', 'Oswald', sans-serif;
+    text-align: left;
+    font-size: 100px;
+}
