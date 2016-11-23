@@ -248,7 +248,7 @@
                 <div class="col-md-4 col-sm-6 col-xs-12 topic-box">
                     <div class="thumbnail text-center topic-image">
                         <a href="posts.php?topic=9">
-                            <img src="images/wanderlust.jpg" alt="" height="600" width="700">
+                            <img src="images/travel.jpg" alt="" height="600" width="700">
                             <div class="caption" id="topic-caption">
                                 <p>Travel</p>
                             </div>
