@@ -59,7 +59,7 @@ class hoheartPosts
     {
         try {
                 
-                echo $_GET['topic'];
+                //echo $_GET['topic'];
                 $topic = $_GET['topic'];
                 
                 // Find out how many items are in the table
@@ -73,28 +73,28 @@ class hoheartPosts
             
                 $row_count = $stmt->fetchColumn(0);
             
-                echo "total:$row_count";
+                //echo "total:$row_count";
                 
                 // How many items to list per page
                 $limit = 10;
-                echo " limit:$limit";
+                //echo " limit:$limit";
                 
                 // How many pages will there be
                 $pages = ceil($row_count / $limit);
-                echo " pages:$pages";
+                //echo " pages:$pages";
             
                 // What page are we currently on?
                 $page = min($pages, filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT, array('options' => array('default' => 1, 'min_range' => 1,),)));
-                echo " page:$page";
+                //echo " page:$page";
             
                 // Calculate the offset for the query
                 $offset = ($page - 1)  * $limit;
-                echo " offset:$offset";
+                //echo " offset:$offset";
             
                 // Some information to display to the user
                 $start = $offset + 1;
                 $end = min(($offset + $limit), $row_count);
-                echo " start:$start end:$end";
+                //echo " start:$start end:$end";
             
                 // The "back" link
                 $prevlink = ($page > 1) ? '<a href="?page=1" title="First page">&laquo;</a> <a href="?page=' . ($page - 1) . '" title="Previous page">&lsaquo;</a>' : '<span class="disabled">&laquo;</span> <span class="disabled">&lsaquo;</span>';
@@ -105,12 +105,14 @@ class hoheartPosts
                 
                 
                 // Prepare the paged query
-                $sql = "SELECT message_id, user_id, media_id, message, link_url, post_time
+                $sql = "SELECT posts.message_id, posts.user_id, posts.topic_id, posts.message, posts.link_url, posts.post_time, users.first_name, users.last_name
                 FROM posts
-                WHERE topic_id=:topic AND message IS NOT NULL
-                ORDER BY post_time DESC
+                INNER JOIN users
+                ON posts.user_id = users.user_id
+                WHERE posts.topic_id = :topic AND posts.message IS NOT NULL
+                ORDER BY posts.post_time DESC
                 LIMIT :limit
-                OFFSET :offset";    
+                OFFSET :offset"; 
             
                 $stmt2 = $this->_db->prepare($sql);
             
@@ -129,7 +131,83 @@ class hoheartPosts
                     // Display the results
                     foreach ($iterator as $row) {
                         //echo '<p>', $row['message_id'], $row['message'], '</p>';
-                        echo '<p>', $row['user_id'], ' ', $row['post_time'], ' ', $row['message'], ' ', $row['link_url'], '</p>';  
+                        /*echo '<p>', $row['user_id'], ' ', $row['post_time'], ' ', $row['message'], ' ', $row['link_url'], $row['first_name'], ' ', $row['last_name'], '</p>';*/
+                        
+                        ?>
+    <div class="container">
+        <div class="row">
+            <div class="[ panel panel-default ] panel-google-plus">
+                <div class="dropdown">
+                    <span class="dropdown-toggle" type="button" data-toggle="dropdown">
+                        <span class="[ glyphicon glyphicon-chevron-down ]"></span>
+                    </span>
+                    <ul class="dropdown-menu" role="menu">
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Report</a></li>
+                        <!--<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>-->
+                    </ul>
+                </div>
+                <div class="panel-heading">
+                    <img class="[ img-circle pull-left ]" src="images/user_pic.jpg" alt="Mouse0270" />
+                    <h3><?php echo $row['first_name'], ' ', $row['last_name']?></h3>
+                    <h5><span>Shared publicly</span> - <span><?php echo $row['post_time']?></span> </h5>
+                </div>
+                <div class="panel-body">
+                    <p>
+                        <?php echo $row['message']?>
+                    </p>
+                </div>
+                <div class="post_website">
+                    <div class="stuff">
+                        <div class="info">
+                            <div class="image">
+                                <img src="http://lorempixel.com/475/250/food" alt="Smiley face"></div>
+                            <div class="title">
+                                <p>Food can be quite delicious</p>
+                            </div>
+                            <div class="description">
+                                <p>Some people say that food can be very tasty, while some others say it can't. However, it has been shown that food is, in fact, delicious, or that at least it can be.</p>
+                            </div>
+                            <div class="url" title="url"> </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <button type="button" class="[ btn btn-default ]">+1</button>
+                    <button type="button" class="[ btn btn-default ]">
+                        <span class="[ glyphicon glyphicon-share-alt ]"></span>
+                    </button>
+                    <div class="input-placeholder">Add a comment...</div>
+                </div>
+                <div class="panel-google-plus-comment">
+                    <img class="img-circle" src="https://lh3.googleusercontent.com/uFp_tsTJboUY7kue5XAsGA=s46" alt="User Image" />
+                    <div class="panel-google-plus-textarea">
+                        <textarea rows="4"></textarea>
+                        <button type="submit" class="[ btn btn-success disabled ]">Post comment</button>
+                        <button type="reset" class="[ btn btn-default ]">Cancel</button>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </br>
+
+
+
+
+
+
+
+
+
+
+    <?php
+                        
                     }
 
                 } else {
@@ -194,12 +272,14 @@ class hoheartPosts
                 
                 
                 // Prepare the paged query
-                $sql = "SELECT message_id, user_id, topic_id, message, link_url, post_time
+                $sql = "SELECT posts.message_id, posts.user_id, posts.topic_id, posts.message, posts.link_url, posts.post_time, users.first_name, users.last_name
                 FROM posts
-                WHERE media_id=:media AND message IS NOT NULL
-                ORDER BY post_time DESC
+                INNER JOIN users
+                ON posts.user_id = users.user_id
+                WHERE posts.media_id = :media AND posts.message IS NOT NULL
+                ORDER BY posts.post_time DESC
                 LIMIT :limit
-                OFFSET :offset";    
+                OFFSET :offset";   
             
                 $stmt2 = $this->_db->prepare($sql);
             
@@ -218,7 +298,15 @@ class hoheartPosts
                     // Display the results
                     foreach ($iterator as $row) {
                         //echo '<p>', $row['message_id'], $row['message'], '</p>';
-                        echo '<p>', $row['user_id'], ' ', $row['post_time'], ' ', $row['message'], ' ', $row['link_url'], '</p>';  
+                        
+                        echo '<p>', $row['user_id'], ' ', $row['post_time'], ' ', $row['message'], ' ', $row['link_url'], $row['first_name'], ' ', $row['last_name'], '</p>';  
+                        
+                             
+                        
+                        
+                        
+                        
+                        
                     }
 
                 } else {
@@ -233,3 +321,4 @@ class hoheartPosts
         }   
     }
 }
+?>

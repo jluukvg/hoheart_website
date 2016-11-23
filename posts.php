@@ -19,7 +19,7 @@
     endif;
 ?>
 
-    <div class="container">
+    <!--<div class="container">
         <div class="row">
             <div class="[ panel panel-default ] panel-google-plus">
                 <div class="dropdown">
@@ -27,7 +27,7 @@
                         <span class="[ glyphicon glyphicon-chevron-down ]"></span>
                     </span>
                     <ul class="dropdown-menu" role="menu">
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Report</a></li>
                         <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
                         <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
                         <li role="presentation" class="divider"></li>
@@ -76,7 +76,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>-->
 
     <script src="post_window.js">
     </script>
