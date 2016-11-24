@@ -306,8 +306,9 @@ body {
 }
 
 .post_website .stuff .info .title {
-    font-size: 22px;
+    font-size: 18px;
     font-weight: 600;
+    line-height: 22px;
 }
 
 .post_website .stuff .info .description {

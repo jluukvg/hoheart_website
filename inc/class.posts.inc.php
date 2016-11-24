@@ -1,5 +1,6 @@
 <?php
 include_once "constants.inc.php";
+include_once('OpenGraph.php');
 /* Handles post interactions within the website */
 
 class hoheartPosts
@@ -18,43 +19,7 @@ class hoheartPosts
             $this->_db = new PDO($dsn, DB_USER, DB_PASS);
         }
     }
-    
-/*    public function loadPostsByTopic()
-    {
-        $posts_array = array();
-        $temp_array = array();
-        
-        
-        $sql = "SELECT message_id, user_id, media_id, message, link_url, post_time
-                FROM posts
-                WHERE topic_id=:topic
-                ORDER BY post_time";
-        
-        if($stmt = $this->_db->prepare($sql))
-        {
-            $stmt->bindParam(':topic', $_GET['topic'], PDO::PARAM_STR);
-            $stmt->execute();
-            
-            while($row = $stmt->fetch())
-            {
-                echo "ESTOY EN UNA LOOP!";
-                $MESSID = $row['message_id'];
-                $UID = $row['user_id'];
-                $MID = $row['media_id'];
-                $MESS = $row['message'];
-                $URL = $row['link_url'];
-                $PT = $row['post_time'];
-            }
-            $stmt->closeCursor();
-        }
-        else
-        {
-            echo "tttt<li> Something went wrong with the database. ", $db->errorInfo, "</li>n";
-        }
-        
-        return array($UID, $MID, $MESS, $URL, $PT);
-    }*/
-    
+      
     public function loadPostsByTopic()
     {
         try {
@@ -133,6 +98,23 @@ class hoheartPosts
                         //echo '<p>', $row['message_id'], $row['message'], '</p>';
                         /*echo '<p>', $row['user_id'], ' ', $row['post_time'], ' ', $row['message'], ' ', $row['link_url'], $row['first_name'], ' ', $row['last_name'], '</p>';*/
                         
+                        $url = $row['link_url'];
+
+                        if (OpenGraph::fetch($url)){
+                            $graph = OpenGraph::fetch($url);
+                            $link_title = $graph->title;
+                            $link_description = $graph->description;
+                            $image_url = $graph->image;
+                            $link_site = $graph->site_name;
+                            $link_url = $row['link_url'];
+                        } else {
+                            $link_title = "This URL didn't work";
+                            $link_description = $row['link_url'];
+                            $image_url = "EMPTY";
+                            $link_site = "EMPTY";
+                            $link_url = $row['link_url'];
+                        }
+                        
                         ?>
     <div class="container">
         <div class="row">
@@ -160,20 +142,26 @@ class hoheartPosts
                     </p>
                 </div>
                 <div class="post_website">
-                    <div class="stuff">
-                        <div class="info">
-                            <div class="image">
-                                <img src="http://lorempixel.com/475/250/food" alt="Smiley face"></div>
-                            <div class="title">
-                                <p>Food can be quite delicious</p>
+                    <a href="<?php echo $link_url?>" target="_blank" style="text-decoration:none; color:black;">
+                        <div class="stuff">
+                            <div class="info">
+                                <div class="image">
+                                    <img src="<?php echo $image_url?>" alt="Oops!" width="475px" height="250px"></div>
+                                <div class="title">
+                                    <p>
+                                        <?php echo $link_title?>
+                                    </p>
+                                </div>
+                                <div class="description">
+                                    <p>
+                                        <?php echo $link_description?>
+                                    </p>
+                                </div>
+                                <div class="url" title="url"> </div>
                             </div>
-                            <div class="description">
-                                <p>Some people say that food can be very tasty, while some others say it can't. However, it has been shown that food is, in fact, delicious, or that at least it can be.</p>
-                            </div>
-                            <div class="url" title="url"> </div>
-                        </div>
 
-                    </div>
+                        </div>
+                    </a>
                 </div>
                 <div class="panel-footer">
                     <button type="button" class="[ btn btn-default ]">+1</button>
@@ -195,17 +183,9 @@ class hoheartPosts
         </div>
     </div>
 
+
+
     </br>
-
-
-
-
-
-
-
-
-
-
     <?php
                         
                     }
