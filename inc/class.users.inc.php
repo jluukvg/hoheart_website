@@ -231,48 +231,7 @@ EMAIL;
     }
   }
     
-  public function createPost()
-  {
-    $post = trim($_POST['post']);
-
-    // The Regular Expression filter
-    $reg_exUrl = "/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/";
-
-    // Check if there is a url in the text
-    if(preg_match($reg_exUrl, $post, $url)) {
-
-       // make the urls hyper links
-       $final_text = preg_replace($reg_exUrl, '', $post);
-
-    } else {
-
-       // if no urls in the text just return the text
-       $final_text = $post;
-
-    }
-
-    $topic = trim($_POST['topic']);
-    $media = trim($_POST['media']);
-    $userID = $_SESSION["user_id"];
-
-    $sql = "INSERT INTO posts(message, topic_id, media_id, link_url, user_id, post_time)
-            VALUES(:post, :topic, :media, :url, :user, NOW())";
-
-    if($stmt = $this->_db->prepare($sql)) {
-      $stmt->bindParam(":post", $final_text, PDO::PARAM_STR);
-      $stmt->bindParam(":topic", $topic, PDO::PARAM_STR);
-      $stmt->bindParam(":media", $media, PDO::PARAM_STR);
-      $stmt->bindParam(":url", $url[0], PDO::PARAM_STR);
-      $stmt->bindParam(":user", $userID, PDO::PARAM_STR);
-      $stmt->execute();
-      $stmt->closeCursor();
-
-      return "<h2> Success! </h2>"."<p>Your post was successfully created.</p>";
-    }
-    else {
-      return "<h2> Error </h2>"."<p>No post created.</p>";
-    }
-  }
+ 
     public function retrieveAccountInfo()
     {
         $sql = "SELECT user_id, first_name, last_name

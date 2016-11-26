@@ -19,7 +19,145 @@ class hoheartPosts
             $this->_db = new PDO($dsn, DB_USER, DB_PASS);
         }
     }
-      
+
+    
+    public function createPost()
+    {
+      $post = trim($_POST['post']);
+
+      // The Regular Expression filter
+      $reg_exUrl = "/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/";
+
+      // Check if there is a url in the text
+      if(preg_match($reg_exUrl, $post, $url)) {
+
+         // make the urls hyper links
+         $final_text = preg_replace($reg_exUrl, '', $post);
+
+      } else {
+
+         // if no urls in the text just return the text
+         $final_text = $post;
+
+      }
+
+      $topic = trim($_POST['topic']);
+      $media = trim($_POST['media']);
+      $userID = $_SESSION["user_id"];
+
+      $sql = "INSERT INTO posts(message, topic_id, media_id, link_url, user_id, post_time)
+              VALUES(:post, :topic, :media, :url, :user, NOW())";
+
+      if($stmt = $this->_db->prepare($sql)) {
+        $stmt->bindParam(":post", $final_text, PDO::PARAM_STR);
+        $stmt->bindParam(":topic", $topic, PDO::PARAM_STR);
+        $stmt->bindParam(":media", $media, PDO::PARAM_STR);
+        $stmt->bindParam(":url", $url[0], PDO::PARAM_STR);
+        $stmt->bindParam(":user", $userID, PDO::PARAM_STR);
+        $stmt->execute();
+        $stmt->closeCursor();
+          
+        $this->extractLinkInfo($url[0]);
+
+        return "<h2> Success! </h2>"."<p>Your post was successfully created.</p>";
+      }
+      else {
+        return "<h2> Error </h2>"."<p>No post created.</p>";
+      }
+    }
+    
+    private function extractLinkInfo($url)
+    {
+        if (OpenGraph::fetch($url)){
+            $extracted = $this->checkIfExtracted($url);
+            if (!$extracted){
+                $graph = OpenGraph::fetch($url);
+                if (isset($graph->title)){
+                    $link_title = $graph->title;
+                    $link_url = $url;
+                    if (isset($graph->image)){
+                        $image_url = $graph->image;
+                    } else {
+                        $image_url = NULL;
+                    }
+                    if (isset($graph->description)){
+                        $link_description = $graph->description;
+                    } else {
+                        $link_description = NULL;
+                    }
+                    if (isset($graph->site_name)){
+                        $link_site = $graph->site_name;
+                    } else {
+                        $link_site = NULL;
+                    }
+
+                } else {
+                    $link_title = "No title found";
+                    $link_description = $row['link_url'];
+                    $image_url = NULL;
+                    $link_site = NULL;
+                    $link_url = $url;
+                } 
+                
+                $sql = "INSERT INTO `extracts`(`url`, `title`, `description`, `link_site`, `image_url`) VALUES (:url, :title, :description , :link_site, :image_url)";
+        
+                if($stmt = $this->_db->prepare($sql)) {
+                    $stmt->bindParam(":url", $link_url, PDO::PARAM_STR);
+                    $stmt->bindParam(":title", $link_title, PDO::PARAM_STR);
+                    $stmt->bindParam(":description", $link_description, PDO::PARAM_STR);
+                    $stmt->bindParam(":link_site", $link_site, PDO::PARAM_STR);
+                    $stmt->bindParam(":image_url", $image_url, PDO::PARAM_STR);
+                    $stmt->execute();
+                    $stmt->closeCursor();
+                }
+            
+            } else{
+                $link_url = $url;
+                list ($link_title, $link_description, $image_url, $link_site) = $extracted;
+            }
+                
+
+        } else {
+            $link_title = "This URL didn't work";
+            $link_description = $row['link_url'];
+            $image_url = "EMPTY";
+            $link_site = "EMPTY";
+            $link_url = $url;
+        }
+        echo $link_title . "<br>";
+        echo $link_description . "<br>";
+        echo $image_url . "<br>";
+        echo $link_site . "<br>";
+        echo $link_url . "<br>";
+        
+        
+    }
+    
+    private function checkIfExtracted($url)
+    {
+        $sql = "SELECT *
+                FROM extracts
+                WHERE url=:url
+                LIMIT 1";
+        try
+        {
+            $stmt = $this->_db->prepare($sql);
+            $stmt->bindParam(':url', $url, PDO::PARAM_STR);
+            $stmt->execute();
+            $row = $stmt->fetch();
+            $stmt->closeCursor();
+            if (isset($row['url'])){
+                return array($row['title'], $row['description'], $row['image_url'], $row['link_site']);
+            } else{
+                return FALSE;
+            }
+        }
+        catch(PDOException $e)
+        {
+            return FALSE;
+        }
+    }
+    
     public function loadPostsByTopic()
     {
         try {
@@ -102,11 +240,34 @@ class hoheartPosts
 
                         if (OpenGraph::fetch($url)){
                             $graph = OpenGraph::fetch($url);
-                            $link_title = $graph->title;
-                            $link_description = $graph->description;
-                            $image_url = $graph->image;
-                            $link_site = $graph->site_name;
-                            $link_url = $row['link_url'];
+                            if (isset($graph->title)){
+                                $link_title = $graph->title;
+                                $link_url = $row['link_url'];
+                                if (isset($graph->image)){
+                                    $image_url = $graph->image;
+                                } else {
+                                    $image_url = NULL;
+                                }
+                                if (isset($graph->description)){
+                                    $link_description = $graph->description;
+                                } else {
+                                    $link_description = NULL;
+                                }
+                                if (isset($graph->link_site)){
+                                    $link_site = $graph->site_name;
+                                } else {
+                                    $link_site = NULL;
+                                }
+                                
+                                
+                            } else {
+                                $link_title = "No title found";
+                                $link_description = $row['link_url'];
+                                $image_url = NULL;
+                                $link_site = NULL;
+                                $link_url = $row['link_url'];
+                            }
+
                         } else {
                             $link_title = "This URL didn't work";
                             $link_description = $row['link_url'];
@@ -147,17 +308,20 @@ class hoheartPosts
                             <div class="info">
                                 <div class="image">
                                     <img src="<?php echo $image_url?>" alt="Oops!" width="475px" height="250px"></div>
-                                <div class="title">
-                                    <p>
-                                        <?php echo $link_title?>
-                                    </p>
-                                </div>
-                                <div class="description">
-                                    <p>
-                                        <?php echo $link_description?>
-                                    </p>
-                                </div>
-                                <div class="url" title="url"> </div>
+
+                                <?php if ($link_title != NULL):?>
+                                    <div class="title">
+                                        <p>
+                                            <?php echo $link_title?>
+                                        </p>
+                                    </div>
+                                    <?php endif;?>
+                                        <div class="description">
+                                            <p>
+                                                <?php echo $link_description?>
+                                            </p>
+                                        </div>
+                                        <div class="url" title="url"> </div>
                             </div>
 
                         </div>

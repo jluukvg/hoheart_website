@@ -14,9 +14,9 @@
                     <form role="form" method="post">
                         <?php
                             if(!empty($_POST['post'])):
-                            include_once "inc/class.users.inc.php";
-                            $users = new dedaloUsers($db);
-                            echo $users->createPost();
+                            include_once "inc/class.posts.inc.php";
+                            $posts = new hoheartPosts($db);
+                            echo $posts->createPost();
                             else:
                         ?>
                             <textarea placeholder="What would you like to share?" name="post" id="post"></textarea>
