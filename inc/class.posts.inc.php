@@ -116,7 +116,6 @@ class hoheartPosts
                 list ($link_title, $link_description, $image_url, $link_site) = $extracted;
             }
                 
-
         } else {
             $link_title = "This URL didn't work";
             $link_description = $row['link_url'];
@@ -124,13 +123,11 @@ class hoheartPosts
             $link_site = "EMPTY";
             $link_url = $url;
         }
-        echo $link_title . "<br>";
+        /*echo $link_title . "<br>";
         echo $link_description . "<br>";
         echo $image_url . "<br>";
         echo $link_site . "<br>";
-        echo $link_url . "<br>";
-        
-        
+        echo $link_url . "<br>"; */  
     }
     
     private function checkIfExtracted($url)
@@ -205,13 +202,11 @@ class hoheartPosts
                 // The "forward" link
                 $nextlink = ($page < $pages) ? '<a href="?page=' . ($page + 1) . '" title="Next page">&rsaquo;</a> <a href="?page=' . $pages . '" title="Last page">&raquo;</a>' : '<span class="disabled">&rsaquo;</span> <span class="disabled">&raquo;</span>';
 
-                
-                
                 // Prepare the paged query
-                $sql = "SELECT posts.message_id, posts.user_id, posts.topic_id, posts.message, posts.link_url, posts.post_time, users.first_name, users.last_name
+                $sql = "SELECT posts.message_id, posts.user_id, posts.message, posts.link_url, posts.post_time, users.first_name, users.last_name, extracts.title, extracts.description, extracts.link_site, extracts.image_url
                 FROM posts
-                INNER JOIN users
-                ON posts.user_id = users.user_id
+                INNER JOIN users ON posts.user_id = users.user_id
+                INNER JOIN extracts ON posts.link_url = extracts.url
                 WHERE posts.topic_id = :topic AND posts.message IS NOT NULL
                 ORDER BY posts.post_time DESC
                 LIMIT :limit
@@ -233,48 +228,11 @@ class hoheartPosts
 
                     // Display the results
                     foreach ($iterator as $row) {
-                        //echo '<p>', $row['message_id'], $row['message'], '</p>';
-                        /*echo '<p>', $row['user_id'], ' ', $row['post_time'], ' ', $row['message'], ' ', $row['link_url'], $row['first_name'], ' ', $row['last_name'], '</p>';*/
-                        
-                        $url = $row['link_url'];
-
-                        if (OpenGraph::fetch($url)){
-                            $graph = OpenGraph::fetch($url);
-                            if (isset($graph->title)){
-                                $link_title = $graph->title;
-                                $link_url = $row['link_url'];
-                                if (isset($graph->image)){
-                                    $image_url = $graph->image;
-                                } else {
-                                    $image_url = NULL;
-                                }
-                                if (isset($graph->description)){
-                                    $link_description = $graph->description;
-                                } else {
-                                    $link_description = NULL;
-                                }
-                                if (isset($graph->link_site)){
-                                    $link_site = $graph->site_name;
-                                } else {
-                                    $link_site = NULL;
-                                }
-                                
-                                
-                            } else {
-                                $link_title = "No title found";
-                                $link_description = $row['link_url'];
-                                $image_url = NULL;
-                                $link_site = NULL;
-                                $link_url = $row['link_url'];
-                            }
-
-                        } else {
-                            $link_title = "This URL didn't work";
-                            $link_description = $row['link_url'];
-                            $image_url = "EMPTY";
-                            $link_site = "EMPTY";
-                            $link_url = $row['link_url'];
-                        }
+                        $link_title = $row['title'];
+                        $link_description = $row['description'];
+                        $image_url = $row['image_url'];
+                        $link_site = $row['link_site'];
+                        $link_url = $row['link_url'];
                         
                         ?>
     <div class="container">
@@ -413,17 +371,14 @@ class hoheartPosts
                 // The "forward" link
                 $nextlink = ($page < $pages) ? '<a href="?page=' . ($page + 1) . '" title="Next page">&rsaquo;</a> <a href="?page=' . $pages . '" title="Last page">&raquo;</a>' : '<span class="disabled">&rsaquo;</span> <span class="disabled">&raquo;</span>';
 
-                
-                
-                // Prepare the paged query
-                $sql = "SELECT posts.message_id, posts.user_id, posts.topic_id, posts.message, posts.link_url, posts.post_time, users.first_name, users.last_name
+                $sql = "SELECT posts.message_id, posts.user_id, posts.message, posts.link_url, posts.post_time, users.first_name, users.last_name, extracts.title, extracts.description, extracts.link_site, extracts.image_url
                 FROM posts
-                INNER JOIN users
-                ON posts.user_id = users.user_id
+                INNER JOIN users ON posts.user_id = users.user_id
+                INNER JOIN extracts ON posts.link_url = extracts.url
                 WHERE posts.media_id = :media AND posts.message IS NOT NULL
                 ORDER BY posts.post_time DESC
                 LIMIT :limit
-                OFFSET :offset";   
+                OFFSET :offset"; 
             
                 $stmt2 = $this->_db->prepare($sql);
             
@@ -442,8 +397,88 @@ class hoheartPosts
                     // Display the results
                     foreach ($iterator as $row) {
                         //echo '<p>', $row['message_id'], $row['message'], '</p>';
+                        //echo '<p>', $row['user_id'], ' ', $row['post_time'], ' ', $row['message'], ' ', $row['link_url'], $row['first_name'], ' ', $row['last_name'], '</p>';
+                        $link_title = $row['title'];
+                        $link_description = $row['description'];
+                        $image_url = $row['image_url'];
+                        $link_site = $row['link_site'];
+                        $link_url = $row['link_url'];
                         
-                        echo '<p>', $row['user_id'], ' ', $row['post_time'], ' ', $row['message'], ' ', $row['link_url'], $row['first_name'], ' ', $row['last_name'], '</p>';  
+                        ?>
+    <div class="container">
+        <div class="row">
+            <div class="[ panel panel-default ] panel-google-plus">
+                <div class="dropdown">
+                    <span class="dropdown-toggle" type="button" data-toggle="dropdown">
+                        <span class="[ glyphicon glyphicon-chevron-down ]"></span>
+                    </span>
+                    <ul class="dropdown-menu" role="menu">
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Report</a></li>
+                        <!--<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>-->
+                    </ul>
+                </div>
+                <div class="panel-heading">
+                    <img class="[ img-circle pull-left ]" src="images/user_pic.jpg" alt="Mouse0270" />
+                    <h3><?php echo $row['first_name'], ' ', $row['last_name']?></h3>
+                    <h5><span>Shared publicly</span> - <span><?php echo $row['post_time']?></span> </h5>
+                </div>
+                <div class="panel-body">
+                    <p>
+                        <?php echo $row['message']?>
+                    </p>
+                </div>
+                <div class="post_website">
+                    <a href="<?php echo $link_url?>" target="_blank" style="text-decoration:none; color:black;">
+                        <div class="stuff">
+                            <div class="info">
+                                <div class="image">
+                                    <img src="<?php echo $image_url?>" alt="Oops!" width="475px" height="250px"></div>
+
+                                <?php if ($link_title != NULL):?>
+                                    <div class="title">
+                                        <p>
+                                            <?php echo $link_title?>
+                                        </p>
+                                    </div>
+                                    <?php endif;?>
+                                        <div class="description">
+                                            <p>
+                                                <?php echo $link_description?>
+                                            </p>
+                                        </div>
+                                        <div class="url" title="url"> </div>
+                            </div>
+
+                        </div>
+                    </a>
+                </div>
+                <div class="panel-footer">
+                    <button type="button" class="[ btn btn-default ]">+1</button>
+                    <button type="button" class="[ btn btn-default ]">
+                        <span class="[ glyphicon glyphicon-share-alt ]"></span>
+                    </button>
+                    <div class="input-placeholder">Add a comment...</div>
+                </div>
+                <div class="panel-google-plus-comment">
+                    <img class="img-circle" src="https://lh3.googleusercontent.com/uFp_tsTJboUY7kue5XAsGA=s46" alt="User Image" />
+                    <div class="panel-google-plus-textarea">
+                        <textarea rows="4"></textarea>
+                        <button type="submit" class="[ btn btn-success disabled ]">Post comment</button>
+                        <button type="reset" class="[ btn btn-default ]">Cancel</button>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    </br>
+    <?php
                         
                              
                         
