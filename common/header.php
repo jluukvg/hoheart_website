@@ -19,6 +19,8 @@
     <!-- Bootstrap Date-Picker Plugin -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
+    <!-- Bootstrap Validator (1000Hz) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.5/validator.min.js"></script>
     <!-- My CSS -->
     <link rel="stylesheet" href="this_website.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="liveurl.css" type="text/css" media="screen" />
@@ -78,32 +80,33 @@
         </nav>
         <?php //echo $userID, $_SESSION["user_id"]?>
 
-        <?php else: ?>
-        <nav class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
+            <?php else: ?>
+                <nav class="navbar navbar-inverse navbar-fixed-top">
+                    <div class="container">
 
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#"></a>
-                </div>
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <a class="navbar-brand" href="#"></a>
+                        </div>
 
-                <form class="navbar-form navbar-right" action="login.php" method="post" role="form">
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="email" placeholder="E-mail">
-                    </div>
-                    <div class="form-group">
-                        <input type="password" class="form-control" name="password" placeholder="Password">
-                    </div>
-                    <div class="checkbox" style="color:white;">
-                        <label style="font-size: 10px;"><input type="checkbox" style="font-size: 20px; margin-right: 10px;"> Remember me</label>
-                    </div>
-                    <input type="submit" class="btn btn-success" value="Log In">
-                </form>
+                        <form class="navbar-form navbar-right" action="login.php" method="post" role="form">
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="email" placeholder="E-mail">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control" name="password" placeholder="Password">
+                            </div>
+                            <div class="checkbox" style="color:white;">
+                                <label style="font-size: 10px;">
+                                    <input type="checkbox" style="font-size: 20px; margin-right: 10px;"> Remember me</label>
+                            </div>
+                            <input type="submit" class="btn btn-success" value="Log In">
+                        </form>
 
-            </div>
-        </nav>
-        <?php endif; ?>
+                    </div>
+                </nav>
+                <?php endif; ?>

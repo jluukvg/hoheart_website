@@ -47,5 +47,6 @@ extract_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
 url VARCHAR(1000),
 title VARCHAR(1000),
 description VARCHAR(1000),
+link_site VARCHAR(1000),
 image_url VARCHAR(1000),
 PRIMARY KEY (extract_id));

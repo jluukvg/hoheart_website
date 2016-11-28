@@ -1,17 +1,18 @@
 <?php
     include_once "common/base.php";
-    include_once "common/header.php";
+ 
+    if(isset($_SESSION['LoggedIn']) && isset($_SESSION['Username'])
+        && $_SESSION['LoggedIn']==1):
+        
+        include_once "common/header.php";
 ?>
 
     <body>
-
-
-
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-4"></div>
                 <div class="col-md-4 post-box">
-                    <form role="form" method="post">
+                    <form data-toggle="validator" role="form" method="post">
                         <?php
                             if(!empty($_POST['post'])):
                             include_once "inc/class.posts.inc.php";
@@ -22,7 +23,7 @@
                             <textarea placeholder="What would you like to share?" name="post" id="post"></textarea>
 
                             <div class="form-group post-options">
-                                <select class="selectpicker post-dropdown" data-width="25%" name="topic" title="Topic">>
+                                <select class="selectpicker post-dropdown" data-width="25%" name="topic" title="Topic" required>>
                                     <option value="1">Movies</option>
                                     <option value="2">Music</option>
                                     <option value="3">Events</option>
@@ -31,7 +32,7 @@
                                     <option value="6">Sports</option>
                                     <option value="7">Books</option>
                                     <option value="8">Fashion</option>
-                                    <option value="9">Wanderlust</option>
+                                    <option value="9">Travel</option>
                                     <option value="10">Funny</option>
                                     <option value="11">Interesting</option>
                                     <option value="12">Lifestyle</option>
@@ -65,6 +66,9 @@
                         ?>
                     </form>
                 </div>
+
+
+
                 <div class="col-md-4"></div>
 
                 <script src="jquery.liveurl.js">
@@ -226,7 +230,7 @@
                 <div class="col-md-4 col-sm-6 col-xs-12 topic-box">
                     <div class="thumbnail text-center topic-image">
                         <a href="posts.php?topic=7">
-                            <img src="images/books.jpg" alt="" height="600" width="700">
+                            <img src="images/books.jpg" alt="" height="600px" width="700px">
                             <div class="caption" id="topic-caption">
                                 <p>Books</p>
                             </div>
@@ -237,7 +241,7 @@
                 <div class="col-md-4 col-sm-6 col-xs-12 topic-box">
                     <div class="thumbnail text-center topic-image">
                         <a href="posts.php?topic=8">
-                            <img src="images/fashion.jpg" alt="" height="600" width="700">
+                            <img src="images/fashion.jpg" alt="" height="600px" width="700px">
                             <div class="caption" id="topic-caption">
                                 <p>Fashion</p>
                             </div>
@@ -248,9 +252,46 @@
                 <div class="col-md-4 col-sm-6 col-xs-12 topic-box">
                     <div class="thumbnail text-center topic-image">
                         <a href="posts.php?topic=9">
-                            <img src="images/travel.jpg" alt="" height="600" width="700">
+                            <img src="images/travel.jpg" alt="" height="600px" width="700px">
                             <div class="caption" id="topic-caption">
                                 <p>Travel</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-4 col-sm-6 col-xs-12 topic-box">
+                    <div class="thumbnail text-center topic-image">
+                        <a href="posts.php?topic=10">
+                            <img src="http://lorempixel.com/795/529/technics" alt="" height="600px" width="700px">
+                            <div class="caption" id="topic-caption">
+                                <p>Funny</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-sm-6 col-xs-12 topic-box">
+                    <div class="thumbnail text-center topic-image">
+                        <a href="posts.php?topic=11">
+                            <img src="http://lorempixel.com/795/529/abstract" alt="" height="600px" width="700px">
+                            <div class="caption" id="topic-caption">
+                                <p>Interesting</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-sm-6 col-xs-12 topic-box">
+                    <div class="thumbnail text-center topic-image">
+                        <a href="posts.php?topic=12">
+                            <img src="http://lorempixel.com/795/529/people" alt="" height="600px" width="700px">
+                            <div class="caption" id="topic-caption">
+                                <p>Lifestyle</p>
                             </div>
                         </a>
                     </div>
@@ -329,4 +370,14 @@
             ?>
             <script type="text/javascript" src="toggle_script.js"></script>
     </body>
-    <?php include_once "common/footer.php"; ?>
+
+    <?php 
+    include_once "common/footer.php";
+
+    
+  
+    else:
+        header("Location: index.php"); 
+        exit();
+    endif;
+?>

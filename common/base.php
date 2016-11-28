@@ -4,7 +4,9 @@
     ini_set("display_errors", 1);
 
     // Start a PHP session
-    session_start();
+    if(!isset($_SESSION)) {
+     session_start();
+    }
 
     // Include site constants
     include_once "inc/constants.inc.php";
