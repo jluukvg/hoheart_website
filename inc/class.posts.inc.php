@@ -77,6 +77,14 @@ class hoheartPosts
                     $link_url = $url;
                     if (isset($graph->image)){
                         $image_url = $graph->image;
+                        
+                        $parsed = parse_url($image_url);
+                        if (empty($parsed['scheme'])){
+                            $parsed_link = parse_url($link_url);
+                            $new_image_url = $parsed_link['scheme']."://".$parsed_link['host'].$image_url;
+                            $image_url = $new_image_url;
+                        }
+                        
                     } else {
                         $image_url = NULL;
                     }
@@ -228,88 +236,17 @@ class hoheartPosts
 
                     // Display the results
                     foreach ($iterator as $row) {
+                        $first_name = $row['first_name'];
+                        $last_name = $row['last_name'];
+                        $post_time = $row['post_time'];
+                        $message = $row['message'];
                         $link_title = $row['title'];
                         $link_description = $row['description'];
                         $image_url = $row['image_url'];
                         $link_site = $row['link_site'];
                         $link_url = $row['link_url'];
                         
-                        ?>
-    <div class="container">
-        <div class="row">
-            <div class="[ panel panel-default ] panel-google-plus">
-                <div class="dropdown">
-                    <span class="dropdown-toggle" type="button" data-toggle="dropdown">
-                        <span class="[ glyphicon glyphicon-chevron-down ]"></span>
-                    </span>
-                    <ul class="dropdown-menu" role="menu">
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Report</a></li>
-                        <!--<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
-                        <li role="presentation" class="divider"></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>-->
-                    </ul>
-                </div>
-                <div class="panel-heading">
-                    <img class="[ img-circle pull-left ]" src="images/user_pic.jpg" alt="Mouse0270" />
-                    <h3><?php echo $row['first_name'], ' ', $row['last_name']?></h3>
-                    <h5><span>Shared publicly</span> - <span><?php echo $row['post_time']?></span> </h5>
-                </div>
-                <div class="panel-body">
-                    <p>
-                        <?php echo $row['message']?>
-                    </p>
-                </div>
-                <div class="post_website">
-                    <a href="<?php echo $link_url?>" target="_blank" style="text-decoration:none; color:black;">
-                        <div class="stuff">
-                            <div class="info">
-                                <div class="image">
-                                    <img src="<?php echo $image_url?>" alt="Oops!" width="475px" height="250px"></div>
-
-                                <?php if ($link_title != NULL):?>
-                                    <div class="title">
-                                        <p>
-                                            <?php echo $link_title?>
-                                        </p>
-                                    </div>
-                                    <?php endif;?>
-                                        <div class="description">
-                                            <p>
-                                                <?php echo $link_description?>
-                                            </p>
-                                        </div>
-                                        <div class="url" title="url"> </div>
-                            </div>
-
-                        </div>
-                    </a>
-                </div>
-                <div class="panel-footer">
-                    <button type="button" class="[ btn btn-default ]">+1</button>
-                    <button type="button" class="[ btn btn-default ]">
-                        <span class="[ glyphicon glyphicon-share-alt ]"></span>
-                    </button>
-                    <div class="input-placeholder">Add a comment...</div>
-                </div>
-                <div class="panel-google-plus-comment">
-                    <img class="img-circle" src="https://lh3.googleusercontent.com/uFp_tsTJboUY7kue5XAsGA=s46" alt="User Image" />
-                    <div class="panel-google-plus-textarea">
-                        <textarea rows="4"></textarea>
-                        <button type="submit" class="[ btn btn-success disabled ]">Post comment</button>
-                        <button type="reset" class="[ btn btn-default ]">Cancel</button>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-    </br>
-    <?php
-                        
+                        include("post_stream.php");
                     }
 
                 } else {
@@ -328,7 +265,7 @@ class hoheartPosts
     {
         try {
                 
-                echo $_GET['media'];
+                //echo $_GET['media'];
                 $media = $_GET['media'];
                 
                 // Find out how many items are in the table
@@ -342,28 +279,28 @@ class hoheartPosts
             
                 $row_count = $stmt->fetchColumn(0);
             
-                echo "total:$row_count";
+                //echo "total:$row_count";
                 
                 // How many items to list per page
                 $limit = 10;
-                echo " limit:$limit";
+                //echo " limit:$limit";
                 
                 // How many pages will there be
                 $pages = ceil($row_count / $limit);
-                echo " pages:$pages";
+                //echo " pages:$pages";
             
                 // What page are we currently on?
                 $page = min($pages, filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT, array('options' => array('default' => 1, 'min_range' => 1,),)));
-                echo " page:$page";
+                //echo " page:$page";
             
                 // Calculate the offset for the query
                 $offset = ($page - 1)  * $limit;
-                echo " offset:$offset";
+                //echo " offset:$offset";
             
                 // Some information to display to the user
                 $start = $offset + 1;
                 $end = min(($offset + $limit), $row_count);
-                echo " start:$start end:$end";
+                //echo " start:$start end:$end";
             
                 // The "back" link
                 $prevlink = ($page > 1) ? '<a href="?page=1" title="First page">&laquo;</a> <a href="?page=' . ($page - 1) . '" title="Previous page">&lsaquo;</a>' : '<span class="disabled">&laquo;</span> <span class="disabled">&lsaquo;</span>';
@@ -398,94 +335,17 @@ class hoheartPosts
                     foreach ($iterator as $row) {
                         //echo '<p>', $row['message_id'], $row['message'], '</p>';
                         //echo '<p>', $row['user_id'], ' ', $row['post_time'], ' ', $row['message'], ' ', $row['link_url'], $row['first_name'], ' ', $row['last_name'], '</p>';
+                        $first_name = $row['first_name'];
+                        $last_name = $row['last_name'];
+                        $post_time = $row['post_time'];
+                        $message = $row['message'];
                         $link_title = $row['title'];
                         $link_description = $row['description'];
                         $image_url = $row['image_url'];
                         $link_site = $row['link_site'];
                         $link_url = $row['link_url'];
                         
-                        ?>
-    <div class="container">
-        <div class="row">
-            <div class="[ panel panel-default ] panel-google-plus">
-                <div class="dropdown">
-                    <span class="dropdown-toggle" type="button" data-toggle="dropdown">
-                        <span class="[ glyphicon glyphicon-chevron-down ]"></span>
-                    </span>
-                    <ul class="dropdown-menu" role="menu">
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Report</a></li>
-                        <!--<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
-                        <li role="presentation" class="divider"></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>-->
-                    </ul>
-                </div>
-                <div class="panel-heading">
-                    <img class="[ img-circle pull-left ]" src="images/user_pic.jpg" alt="Mouse0270" />
-                    <h3><?php echo $row['first_name'], ' ', $row['last_name']?></h3>
-                    <h5><span>Shared publicly</span> - <span><?php echo $row['post_time']?></span> </h5>
-                </div>
-                <div class="panel-body">
-                    <p>
-                        <?php echo $row['message']?>
-                    </p>
-                </div>
-                <div class="post_website">
-                    <a href="<?php echo $link_url?>" target="_blank" style="text-decoration:none; color:black;">
-                        <div class="stuff">
-                            <div class="info">
-                                <div class="image">
-                                    <img src="<?php echo $image_url?>" alt="Oops!" width="475px" height="250px"></div>
-
-                                <?php if ($link_title != NULL):?>
-                                    <div class="title">
-                                        <p>
-                                            <?php echo $link_title?>
-                                        </p>
-                                    </div>
-                                    <?php endif;?>
-                                        <div class="description">
-                                            <p>
-                                                <?php echo $link_description?>
-                                            </p>
-                                        </div>
-                                        <div class="url" title="url"> </div>
-                            </div>
-
-                        </div>
-                    </a>
-                </div>
-                <div class="panel-footer">
-                    <button type="button" class="[ btn btn-default ]">+1</button>
-                    <button type="button" class="[ btn btn-default ]">
-                        <span class="[ glyphicon glyphicon-share-alt ]"></span>
-                    </button>
-                    <div class="input-placeholder">Add a comment...</div>
-                </div>
-                <div class="panel-google-plus-comment">
-                    <img class="img-circle" src="https://lh3.googleusercontent.com/uFp_tsTJboUY7kue5XAsGA=s46" alt="User Image" />
-                    <div class="panel-google-plus-textarea">
-                        <textarea rows="4"></textarea>
-                        <button type="submit" class="[ btn btn-success disabled ]">Post comment</button>
-                        <button type="reset" class="[ btn btn-default ]">Cancel</button>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-    </br>
-    <?php
-                        
-                             
-                        
-                        
-                        
-                        
-                        
+                        include("post_stream.php");
                     }
 
                 } else {
