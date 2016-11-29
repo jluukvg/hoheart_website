@@ -366,7 +366,7 @@
         <br>
 
         <?php
-            print_r($_SESSION);
+            //print_r($_SESSION);
             ?>
             <script type="text/javascript" src="toggle_script.js"></script>
     </body>

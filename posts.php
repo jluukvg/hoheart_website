@@ -16,10 +16,11 @@
         endif;
 
 ?>
+
+    <body>
+    </body>
     <script src="post_window.js">
     </script>
-
-    </body>
 
     <?php    
         include_once "common/footer.php";
