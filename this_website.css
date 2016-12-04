@@ -73,6 +73,7 @@ body {
     border: 1px solid rgb(216, 216, 216);
     width: 475px;
     font-family: 'Roboto', sans-serif;
+    box-shadow: 5px 5px 5px #888888;
 }
 
 .panel-google-plus > .dropdown {
@@ -299,7 +300,7 @@ body {
 }
 
 .post_website .stuff .info .image {
-    width: 475px;
+    /* width: 475px;*/
     height: 250px;
     margin: 0 10px 10px 0;
     float: left;
@@ -429,4 +430,18 @@ body {
     font-family: 'Patua One', 'Oswald', sans-serif;
     text-align: left;
     font-size: 100px;
+}
+
+.test-title {
+    padding: 10px;
+    color: red;
+}
+
+.second-menu {
+    margin: 20px;
+    color: red;
+}
+
+.second-menu-heading {
+    color: red;
 }
