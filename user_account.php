@@ -356,7 +356,7 @@
                     </div>
 
                 </div>
-                
+
                 <div class="col-sm-9 col-md-9 well admin-content">
                     <p>Arbitror varias offendit admodum in magna efflorescere appellat minim incididunt. Est minim voluptate efflorescere, sed proident illustriora, enim illustriora pariatur nulla commodo, illum domesticarum mandaremus elit possumus ab nam aliqua quae fore arbitror, id fugiat distinguantur non ut cernantur tractavissent ita elit in incididunt est veniam. Arbitror elit est vidisse sempiternum ita minim voluptate sed illum sint, non dolore appellat mentitum iis anim proident an nescius non duis tempor iis laboris se vidisse de quid sed elit consectetur laborum sunt fabulas, litteris velit laborum nescius. Legam officia ubi fabulas nam ullamco est elit possumus, quamquam veniam est aliquip relinqueret id probant elit sint probant anim eu senserit de tamen, ubi iudicem si doctrina id ingeniis nisi duis nam nulla, nescius aute ipsum expetendis quorum. Ita elit proident praetermissum, occaecat illum e quibusdam sempiternum, esse id iudicem ea magna, mandaremus ea singulis hic veniam ingeniis distinguantur, hic quamquam praesentibus, quibusdam in lorem iis eram ubi eu aute aliquip. Est elit expetendis, nostrud summis amet litteris eram eu iudicem esse ab iudicem fidelissimae ut quae transferrem incididunt velit doctrina. Et sed graviterque. Tamen aut hic aliqua proident, ut fugiat occaecat deserunt.Aute est id multos admodum, ut magna ita malis, e sint excepteur est a tamen comprehenderit. Iis ad elit ullamco et irure est fabulas ita legam, lorem appellat adipisicing, qui de duis illum veniam. Dolor do senserit ita quid id malis hic si aute laborum, ipsum mandaremus ita cohaerescant, anim ne expetendis eu sint te ex malis probant coniunctione, sed ullamco comprehenderit iis cupidatat legam ubi laboris instituendarum ut veniam imitarentur laborum culpa nostrud. Multos voluptate aut excepteur. Legam nescius appellat. Velit iudicem an distinguantur, dolor eiusmod arbitrantur, fabulas an incididunt, in nisi offendit arbitrantur, an enim occaecat probant ut singulis malis voluptate deserunt te iudicem quae a nescius exercitation in elit a tempor.</p>
                 </div>
@@ -373,17 +373,17 @@
                             $posts->loadPostsByTopic($topic);
                         ?>
                     </div>
-                <div class="col-sm-9 col-md-9 well admin-content" id="posts-topics-music"> Music </div>
-                <div class="col-sm-9 col-md-9 well admin-content" id="posts-topics-events"> Events </div>
-                <div class="col-sm-9 col-md-9 well admin-content" id="posts-topics-food"> Food </div>
-                <div class="col-sm-9 col-md-9 well admin-content" id="posts-topics-restaurants"> Restaurants </div>
-                <div class="col-sm-9 col-md-9 well admin-content" id="posts-topics-sports"> Sports </div>
-                <div class="col-sm-9 col-md-9 well admin-content" id="posts-topics-books"> Books </div>
-                <div class="col-sm-9 col-md-9 well admin-content" id="posts-topics-fashion"> Fashion </div>
-                <div class="col-sm-9 col-md-9 well admin-content" id="posts-topics-travel"> Travel </div>
-                <div class="col-sm-9 col-md-9 well admin-content" id="posts-topics-funny"> Funny </div>
-                <div class="col-sm-9 col-md-9 well admin-content" id="posts-topics-interesting"> Interesting </div>
-                <div class="col-sm-9 col-md-9 well admin-content" id="posts-topics-lifestyle"> Lifestyle </div>
+                    <div class="col-sm-9 col-md-9 well admin-content" id="posts-topics-music"> Music </div>
+                    <div class="col-sm-9 col-md-9 well admin-content" id="posts-topics-events"> Events </div>
+                    <div class="col-sm-9 col-md-9 well admin-content" id="posts-topics-food"> Food </div>
+                    <div class="col-sm-9 col-md-9 well admin-content" id="posts-topics-restaurants"> Restaurants </div>
+                    <div class="col-sm-9 col-md-9 well admin-content" id="posts-topics-sports"> Sports </div>
+                    <div class="col-sm-9 col-md-9 well admin-content" id="posts-topics-books"> Books </div>
+                    <div class="col-sm-9 col-md-9 well admin-content" id="posts-topics-fashion"> Fashion </div>
+                    <div class="col-sm-9 col-md-9 well admin-content" id="posts-topics-travel"> Travel </div>
+                    <div class="col-sm-9 col-md-9 well admin-content" id="posts-topics-funny"> Funny </div>
+                    <div class="col-sm-9 col-md-9 well admin-content" id="posts-topics-interesting"> Interesting </div>
+                    <div class="col-sm-9 col-md-9 well admin-content" id="posts-topics-lifestyle"> Lifestyle </div>
             </div>
         </div>
 
@@ -412,6 +412,12 @@
                 var target = $(this).attr('data-target-id');
                 $('#' + target).show();
             });
+        });
+
+
+        $('.panel-collapse').on('hidden.bs.collapse', function () {
+            // find the children and close them
+            $(this).find('.collapse.in').collapse('hide');
         });
     </script>
 
