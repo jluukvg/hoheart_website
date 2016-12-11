@@ -171,34 +171,63 @@ EMAIL;
 
   public function updatePassword()
   {
-    if(isset($_POST['p'])
-    && isset($_POST['r'])
-    && $_POST['p']==$_POST['r'])
-    {
-      $sql = "UPDATE users
-              SET pass=MD5(:pass), verify=1
-              WHERE ver_code=:ver
-              LIMIT 1";
-
+      $sql = "SELECT password 
+              FROM users 
+              WHERE email=:user";
+      
       try
       {
         $stmt = $this->_db->prepare($sql);
-        $stmt->bindParam(":pass", $_POST['p'], PDO::PARAM_STR);
-        $stmt->bindParam(":ver", $_POST['v'], PDO::PARAM_STR);
+        $stmt->bindParam(":user", $_SESSION['Username'], PDO::PARAM_STR);
         $stmt->execute();
+        $row = $stmt->fetch();
         $stmt->closeCursor();
-
-        return TRUE;
       }
       catch (PDOException $e)
       {
-          return FALSE;
+        return FALSE;
       }
-    }
-    else
+        
+    $user_pass = $row['password'];
+
+    if(isset($_POST['current-pass']))
     {
-      return FALSE;
-    }
+        $current_pass = sha1($_POST['current-pass']);
+        if($user_pass == $current_pass)
+        {
+            if(isset($_POST['new-pass']) && isset($_POST['re-new-pass']) && $_POST['new-pass']==$_POST['new-pass'])
+            {
+                $sql = "UPDATE users
+                        SET password=sha1(:pass)
+                        WHERE email=:user
+                        LIMIT 1";
+
+                try
+                {
+                    $stmt = $this->_db->prepare($sql);
+                    $stmt->bindParam(":pass", $_POST['new-pass'], PDO::PARAM_STR);
+                    $stmt->bindParam(":user", $_SESSION['Username'], PDO::PARAM_STR);
+                    $stmt->execute();
+                    $stmt->closeCursor();
+
+                    return TRUE;
+                }
+                catch (PDOException $e)
+                {
+                    return FALSE;
+                }
+            }
+            else
+            {
+                return FALSE;
+            }
+
+        }
+        else
+        {
+            return FALSE;
+        }
+    }     
   }
 
   public function accountLogin()
