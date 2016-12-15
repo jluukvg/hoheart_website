@@ -39,7 +39,7 @@
     
         include_once 'inc/class.users.inc.php';
         $users = new dedaloUsers($db);
-        list($userID, $first_name, $last_name) = $users->retrieveAccountInfo();
+        list($userID, $first_name, $last_name, $gender) = $users->retrieveAccountInfo();
     
         $_SESSION["user_id"] = $userID;
 

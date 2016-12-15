@@ -185,7 +185,7 @@ EMAIL;
       }
       catch (PDOException $e)
       {
-        return FALSE;
+        return "3"; // database error
       }
         
     $user_pass = $row['password'];
@@ -195,7 +195,7 @@ EMAIL;
         $current_pass = sha1($_POST['current-pass']);
         if($user_pass == $current_pass)
         {
-            if(isset($_POST['new-pass']) && isset($_POST['re-new-pass']) && $_POST['new-pass']==$_POST['new-pass'])
+            if(isset($_POST['new-pass']) && isset($_POST['re-new-pass']) && $_POST['new-pass']==$_POST['re-new-pass'])
             {
                 $sql = "UPDATE users
                         SET password=sha1(:pass)
@@ -210,22 +210,22 @@ EMAIL;
                     $stmt->execute();
                     $stmt->closeCursor();
 
-                    return TRUE;
+                    return "4"; // everything was successful
                 }
                 catch (PDOException $e)
                 {
-                    return FALSE;
+                    return "3"; // database error
                 }
             }
             else
             {
-                return FALSE;
+                return "2"; // new password and re-new password do not match
             }
 
         }
         else
         {
-            return FALSE;
+            return "1"; // wrong current user password
         }
     }     
   }
@@ -263,7 +263,7 @@ EMAIL;
  
     public function retrieveAccountInfo()
     {
-        $sql = "SELECT user_id, first_name, last_name
+        $sql = "SELECT user_id, first_name, last_name, gender
                 FROM users
                 WHERE email=:email";
         try
@@ -273,7 +273,7 @@ EMAIL;
             $stmt->execute();
             $row = $stmt->fetch();
             $stmt->closeCursor();
-            return array($row['user_id'], $row['first_name'], $row['last_name']);
+            return array($row['user_id'], $row['first_name'], $row['last_name'], $row['gender']);
         }
         catch(PDOException $e)
         {

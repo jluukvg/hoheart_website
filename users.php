@@ -8,14 +8,29 @@
     {
         switch($_POST['action'])
         {
-            case 'changeemail':
-                $status = $userObj->updateEmail() ? "changed" : "failed";
-                header("Location: /user_account.php?email=$status");
+            case 'changeBasicInfo':
+                $status = $userObj->updateBasicInfo() ? "changed" : "failed";
+                header("Location: user_account.php?email=$status");
                 break;
             case 'changepassword':
-                $status = $userObj->updatePassword() ? "changed" : "nomatch";
-                header("Location: /user_account.php?password=$status");
-                break;
+                $status = $userObj->updatePassword();
+                switch($status)
+                {
+                    case "1":
+                        header("Location: user_account.php?password=wrongpass");
+                        break;
+                    case "2":
+                        header("Location: user_account.php?password=nomatch");
+                        break;
+                    case "3":
+                        header("Location: user_account.php?password=dberror");
+                        break;
+                    case "4":
+                        echo "<div class='message good'>Your password " . "has been changed.</div>";
+                        exit;
+                        header("Location: user_account.php?password=changed");
+                        break;
+                }
             case 'deleteaccount':
                 $userObj->deleteAccount();
                 break;
@@ -26,9 +41,8 @@
     }
     else
     {
-        echo "WHAT THE HELL??";
-        /*header("Location: /");
-        exit;*/
+        header("Location: user_account.php");
+        exit;
     }
     
 ?>

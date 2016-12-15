@@ -17,6 +17,14 @@
                         {
                             echo "<div class='message bad'>The two passwords " . "did not match. Try again!</div>";
                         }
+                        elseif(isset($_GET['password']) && $_GET['password']=="wrongpass")
+                        {
+                            echo "<div class='message bad'>The old password you entered " . "is incorrect. Try again!</div>";
+                        }
+                        elseif(isset($_GET['password']) && $_GET['password']=="dberror")
+                        {
+                            echo "<div class='message bad'>There was a database error. " . "Sorry!</div>";
+                        }
                     ?>
             <p>Put something here.</p>
 
@@ -339,7 +347,7 @@
                                         <table class="table">
                                             <tr>
                                                 <td>
-                                                    Basic Information
+                                                    <li class="active" style="list-style-type: none;"><a href="#" style="text-decoration:none; color:black;" data-target-id="account-basicInformation">Basic Information</a></li>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -450,11 +458,57 @@
                         ?>
                         </div>
 
+                        <div class="col-sm-9 col-md-9 well admin-content" id="account-basicInformation">
 
+                            <?php
+                                if ($gender == "M"){
+                                    $gender = "Male";
+                                }
+                                elseif ($gender == "F"){
+                                    $gender = "Female";
+                                }
+                            ?>
+
+                                <h1>Basic Information</h1>
+                                <form role="form" method="post" action="users.php">
+                                    <input type="hidden" name="action" value="changeBasicInfo">
+                                    <div class="row">
+                                        <div class="col-xs-6 col-sm-6 col-md-6">
+                                            <div class="form-group">
+                                                <input type="text" name="first_name" id="f_name" class="form-control" placeholder="<?php echo $first_name;?>">
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-6 col-sm-6 col-md-6">
+                                            <div class="form-group">
+                                                <input type="text" name="last_name" id="l_name" class="form-control" placeholder="<?php echo $last_name;?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-6 col-sm-6 col-md-6">
+                                            <div class="form-group">
+                                                <input type="email" name=email id="email" class="form-control" placeholder="<?php echo $_SESSION['Username'];?>">
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-6 col-sm-6 col-md-6">
+                                            <div class="form-group">
+                                                <select class="selectpicker" data-width="100%" name="gender" title="<?php echo $gender;?>">
+                                                    <option value="M">Male</option>
+                                                    <option value="F">Female</option>
+                                                </select>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <input type="submit" class="btn btn-lg btn-success" style="align-items:center;" value="Edit Information">
+                                    </div>
+                                </form>
+                        </div>
 
 
                         <div class="col-sm-9 col-md-9 well admin-content" id="account-changePassword">
-                            SOMETHING
+                            <h1>Change Password</h1>
                             <form data-toggle="validator" role="form" method="post" action="users.php">
                                 <input type="hidden" name="action" value="changepassword">
                                 <input type="password" data-minlength="2" name="current-pass" id="current-pass" class="form-control" placeholder="Current password" data-error="Password must be at least 6 characters" required>
