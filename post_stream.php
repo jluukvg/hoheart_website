@@ -28,7 +28,7 @@
             <div class="stuff">
                 <div class="info">
                     <div class="image">
-                        
+
                         <?php 
                             
                              $parts = parse_url($link_url);
@@ -43,25 +43,27 @@
                                 
                             
                                 ?>
-                        
-                                <object width="425" height="150" data=<?php echo $video_url; ?> type="application/x-shockwave-flash"><param name="src" value=<?php echo $video_url; ?> /></object>
-                    
-                         <?php
+
+                            <object width="425" height="150" data=<?php echo $video_url; ?> type="application/x-shockwave-flash">
+                                <param name="src" value=<?php echo $video_url; ?> /></object>
+                    </div>
+
+                    <?php
                         
                         else:
                             
                         ?>
-                        
-                        
+
+
                         <img src="<?php echo $image_url?>" alt="Oops!" height="250px"></div>
-<?php
+                <?php
                     endif;
                                 ?>
-                    
-                    
-                    
-                    
-                    
+
+
+
+
+
                     <?php if ($link_title != NULL):?>
                         <div class="title">
                             <p>
@@ -75,27 +77,27 @@
                                 </p>
                             </div>
                             <div class="url" title="url"> </div>
-                </div>
-
             </div>
-        </a>
+
     </div>
-    <div class="panel-footer">
-        <button type="button" class="[ btn btn-default ]">+1</button>
-        <button type="button" class="[ btn btn-default ]">
-            <span class="[ glyphicon glyphicon-share-alt ]"></span>
-        </button>
-        <div class="input-placeholder">Add a comment...</div>
+    </a>
+</div>
+<div class="panel-footer">
+    <button type="button" class="[ btn btn-default ]">+1</button>
+    <button type="button" class="[ btn btn-default ]">
+        <span class="[ glyphicon glyphicon-share-alt ]"></span>
+    </button>
+    <div class="input-placeholder">Add a comment...</div>
+</div>
+<div class="panel-google-plus-comment">
+    <img class="img-circle" src="https://lh3.googleusercontent.com/uFp_tsTJboUY7kue5XAsGA=s46" alt="User Image" />
+    <div class="panel-google-plus-textarea">
+        <textarea rows="4"></textarea>
+        <button type="submit" class="[ btn btn-success disabled ]">Post comment</button>
+        <button type="reset" class="[ btn btn-default ]">Cancel</button>
     </div>
-    <div class="panel-google-plus-comment">
-        <img class="img-circle" src="https://lh3.googleusercontent.com/uFp_tsTJboUY7kue5XAsGA=s46" alt="User Image" />
-        <div class="panel-google-plus-textarea">
-            <textarea rows="4"></textarea>
-            <button type="submit" class="[ btn btn-success disabled ]">Post comment</button>
-            <button type="reset" class="[ btn btn-default ]">Cancel</button>
-        </div>
-        <div class="clearfix"></div>
-    </div>
+    <div class="clearfix"></div>
+</div>
 </div>
 <!--    </div>
 </div>-->

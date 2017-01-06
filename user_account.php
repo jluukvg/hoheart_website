@@ -42,15 +42,16 @@
 
                             <div class="panel panel-default admin-menu">
                                 <a role="button" class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse1" aria-expanded="true" aria-controls="collapse1">
-                                <div class="panel-heading" role="tab" id="heading1">
-                                    
-                                    <h4 class="panel-title">
+                                    <div class="panel-heading" role="tab" id="heading1">
+
+                                        <h4 class="panel-title">
                                 
                                     Posts
                                 
                             </h4>
-                                        
-                                </div></a>
+
+                                    </div>
+                                </a>
                                 <div id="collapse1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading1">
                                     <div class="panel-body">
 
