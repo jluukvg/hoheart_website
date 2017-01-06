@@ -49,4 +49,5 @@ title VARCHAR(1000),
 description VARCHAR(1000),
 link_site VARCHAR(1000),
 image_url VARCHAR(1000),
+link_url VARCHAR(1000),
 PRIMARY KEY (extract_id));

@@ -41,13 +41,16 @@
                         <div class="panel-group level1" id="accordion" role="tablist" aria-multiselectable="true">
 
                             <div class="panel panel-default admin-menu">
-                                <div class="panel-heading" role="tab" id="heading1">
-                                    <h4 class="panel-title">
                                 <a role="button" class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse1" aria-expanded="true" aria-controls="collapse1">
+                                <div class="panel-heading" role="tab" id="heading1">
+                                    
+                                    <h4 class="panel-title">
+                                
                                     Posts
-                                </a>
+                                
                             </h4>
-                                </div>
+                                        
+                                </div></a>
                                 <div id="collapse1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading1">
                                     <div class="panel-body">
 
@@ -472,52 +475,63 @@
                                 <h1>Basic Information</h1>
                                 <form role="form" method="post" action="users.php">
                                     <input type="hidden" name="action" value="changeBasicInfo">
-                                    <div class="row">
-                                        <div class="col-xs-6 col-sm-6 col-md-6">
-                                            <div class="form-group">
-                                                <input type="text" name="first_name" id="f_name" class="form-control" placeholder="<?php echo $first_name;?>">
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-6 col-sm-6 col-md-6">
-                                            <div class="form-group">
-                                                <input type="text" name="last_name" id="l_name" class="form-control" placeholder="<?php echo $last_name;?>">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xs-6 col-sm-6 col-md-6">
-                                            <div class="form-group">
-                                                <input type="email" name=email id="email" class="form-control" placeholder="<?php echo $_SESSION['Username'];?>">
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-6 col-sm-6 col-md-6">
-                                            <div class="form-group">
-                                                <select class="selectpicker" data-width="100%" name="gender" title="<?php echo $gender;?>">
-                                                    <option value="M">Male</option>
-                                                    <option value="F">Female</option>
-                                                </select>
+                                    <div class="form-group row">
+                                        <div class="col-xs-6">
 
-                                            </div>
+                                            <input type="text" name="first_name" id="first_name" class="form-control" value="<?php echo $first_name;?>">
+
+
+
+
+                                            <input type="text" name="last_name" id="last_name" class="form-control" value="<?php echo $last_name;?>">
+
+
+
+
+
+                                            <input type="email" name=email id="email" class="form-control" value="<?php echo $_SESSION['Username'];?>">
+
+
+
+
+                                            <select class="selectpicker" data-width="100%" name="gender" id="gender" value="<?php echo $gender;?>">
+                                                <option value="M">Male</option>
+                                                <option value="F">Female</option>
+                                            </select>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <input type="submit" class="btn btn-lg btn-success" style="align-items:center;" value="Edit Information">
+
+
+                                    <div class="form-group row">
+                                        <div class="offeset-xs-2 col-xs-10">
+                                            <input type="submit" class="btn btn-success" style="align-items:center;" value="Edit Information">
+                                        </div>
                                     </div>
                                 </form>
+
                         </div>
 
 
                         <div class="col-sm-9 col-md-9 well admin-content" id="account-changePassword">
-                            <h1>Change Password</h1>
-                            <form data-toggle="validator" role="form" method="post" action="users.php">
-                                <input type="hidden" name="action" value="changepassword">
-                                <input type="password" data-minlength="2" name="current-pass" id="current-pass" class="form-control" placeholder="Current password" data-error="Password must be at least 6 characters" required>
-                                <input type="password" data-minlength="2" name="new-pass" id="new-pass" class="form-control" placeholder="New password" data-error="Password must be at least 6 characters" required>
-                                <input type="password" data-minlength="2" name="re-new-pass" id="re-new-pass" class="form-control" placeholder="Retype password" data-error="Password must be at least 6 characters" required>
-                                <input type="submit" class="btn btn-block btn-lg btn-success" value="Change password">
-
-                            </form>
-
+                            <div class="container">
+                                <h1>Change Password</h1>
+                                <form data-toggle="validator" role="form" method="post" action="users.php">
+                                    <div class="form-group row">
+                                        <div class="col-xs-3">
+                                            <input type="hidden" name="action" value="changepassword">
+                                            <input type="password" data-minlength="2" name="current-pass" id="current-pass" class="form-control" placeholder="Current password" data-error="Password must be at least 6 characters" required>
+                                            <input type="password" data-minlength="2" name="new-pass" id="new-pass" class="form-control" placeholder="New password" data-error="Password must be at least 6 characters" required>
+                                            <input type="password" data-minlength="2" name="re-new-pass" id="re-new-pass" class="form-control" placeholder="Retype password" data-error="Password must be at least 6 characters" required>
+                                        </div>
+                                        <div class="col-xs-9"></div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="offset-xs-6 col-xs-6">
+                                            <input type="submit" class="btn btn-success" value="Change password">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                 </div>
             </div>

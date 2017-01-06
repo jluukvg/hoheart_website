@@ -2,9 +2,9 @@
 <html lang="en">
 
 <head>
-    <title>Bootstrap Example</title>
+    <title>Echoheart</title>
     <meta charset="utf-8">
-    <meta name="description" content="Working with bootstrap">
+    <meta name="description" content="Share, save, review">
     <meta name="author" content="Jesus Aguilar/Carlos Morales">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -53,7 +53,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="home.php">hoheart</a>
+                    <a class="navbar-brand" href="home.php">Echoheart</a>
                 </div>
 
                 <ul class="nav navbar-nav navbar-right">

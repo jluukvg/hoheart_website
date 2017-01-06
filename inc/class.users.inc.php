@@ -229,6 +229,43 @@ EMAIL;
         }
     }     
   }
+    
+  public function updateBasicInfo()
+  {
+      $sql = "UPDATE users
+              SET first_name=:first_name, last_name=:last_name, email=:email, gender=:gender
+              WHERE email=:user
+              LIMIT 1";
+      
+      try
+      {
+          echo "IM HEdfffffffffsRE!!!";
+      echo $_POST['last_name'];
+          echo $_POST['email'];
+          echo $_POST['gender'];
+          echo $_SESSION['Username'];
+               
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindParam(":first_name", $_POST['first_name'], PDO::PARAM_STR);
+        $stmt->bindParam(":last_name", $_POST['last_name'], PDO::PARAM_STR);
+        $stmt->bindParam(":email", $_POST['email'], PDO::PARAM_STR);
+        $stmt->bindParam(":gender", $_POST['gender'], PDO::PARAM_STR);
+        $stmt->bindParam(":user", $_SESSION['Username'], PDO::PARAM_STR);
+        $stmt->execute();
+        $stmt->closeCursor();
+          
+          echo "NOW IM HERE!!";
+           exit;
+        return TRUE; // everything was successful
+      }
+      catch (PDOException $e)
+      {
+         return FALSE; // database error
+      }
+      
+      
+      
+  }
 
   public function accountLogin()
   {

@@ -28,8 +28,40 @@
             <div class="stuff">
                 <div class="info">
                     <div class="image">
+                        
+                        <?php 
+                            
+                             $parts = parse_url($link_url);
+            
+            
+                            if ($parts['host'] == 'www.youtube.com'): 
+                            
+                                $video_id = $parts['query'];
+                                $video_id = ltrim($video_id, 'v=');
+                                $video_url = "http://www.youtube.com/v/" . $video_id;
+                               
+                                
+                            
+                                ?>
+                        
+                                <object width="425" height="150" data=<?php echo $video_url; ?> type="application/x-shockwave-flash"><param name="src" value=<?php echo $video_url; ?> /></object>
+                    
+                         <?php
+                        
+                        else:
+                            
+                        ?>
+                        
+                        
                         <img src="<?php echo $image_url?>" alt="Oops!" height="250px"></div>
-
+<?php
+                    endif;
+                                ?>
+                    
+                    
+                    
+                    
+                    
                     <?php if ($link_title != NULL):?>
                         <div class="title">
                             <p>
