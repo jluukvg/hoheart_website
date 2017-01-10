@@ -239,11 +239,11 @@ EMAIL;
       
       try
       {
-          echo "IM HEdfffffffffsRE!!!";
-      echo $_POST['last_name'];
+          /*echo "IM HEdfffffffffsRE!!!";
+          echo $_POST['last_name'];
           echo $_POST['email'];
           echo $_POST['gender'];
-          echo $_SESSION['Username'];
+          echo $_SESSION['Username'];*/
                
         $stmt = $this->_db->prepare($sql);
         $stmt->bindParam(":first_name", $_POST['first_name'], PDO::PARAM_STR);
@@ -254,8 +254,6 @@ EMAIL;
         $stmt->execute();
         $stmt->closeCursor();
           
-          echo "NOW IM HERE!!";
-           exit;
         return TRUE; // everything was successful
       }
       catch (PDOException $e)

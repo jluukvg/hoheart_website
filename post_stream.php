@@ -44,7 +44,7 @@
                             
                                 ?>
 
-                            <object width="425" height="150" data=<?php echo $video_url; ?> type="application/x-shockwave-flash">
+                            <object width="450" height="250" data=<?php echo $video_url; ?> type="application/x-shockwave-flash">
                                 <param name="src" value=<?php echo $video_url; ?> /></object>
                     </div>
 

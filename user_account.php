@@ -8,7 +8,16 @@
 ?>
 
     <body>
-        <?php
+        <?php           
+                        if(isset($_GET['basicinfostatus']) && $_GET['basicinfostatus']=="changed")
+                        {
+                            echo "<div class='message good'>Your basic information " . "has been changed.</div>";
+                        }
+                        elseif(isset($_GET['basicinfostatus']) && $_GET['basicinfostatus']=="failed")
+                        {
+                            echo "<div class='message bad'>Your basic information" . "could not be changed. Try again!</div>";    
+                        }
+        
                         if(isset($_GET['password']) && $_GET['password']=="changed")
                         {
                             echo "<div class='message good'>Your password " . "has been changed.</div>";
@@ -534,6 +543,18 @@
                                 </form>
                             </div>
                         </div>
+
+                        <div class="col-sm-9 col-md-9 well admin-content" id="account-changeProfilePic">
+
+
+
+
+
+                        </div>
+
+
+
+
                 </div>
             </div>
 

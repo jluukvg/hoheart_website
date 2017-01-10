@@ -10,7 +10,7 @@
         {
             case 'changeBasicInfo':
                 $status = $userObj->updateBasicInfo() ? "changed" : "failed";
-                header("Location: user_account.php?email=$status");
+                header("Location: user_account.php?basicinfostatus=$status");
                 break;
             case 'changepassword':
                 $status = $userObj->updatePassword();
