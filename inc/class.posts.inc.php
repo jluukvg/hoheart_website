@@ -16,7 +16,7 @@ class hoheartPosts
         else
         {
             $dsn = "mysql:host=".DB_HOST.";dbname=".DB_NAME;
-            $this->_db = new PDO($dsn, DB_USER, DB_PASS);
+            $this->_db = new PDO($dsn, DB_USER, DB_PASS, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
         }
     }
 
@@ -263,6 +263,7 @@ class hoheartPosts
 
                     // Display the results
                     foreach ($iterator as $row) {
+                        $user_id = $row['user_id'];
                         $first_name = $row['first_name'];
                         $last_name = $row['last_name'];
                         $post_time = $row['post_time'];
@@ -362,6 +363,7 @@ class hoheartPosts
                     foreach ($iterator as $row) {
                         //echo '<p>', $row['message_id'], $row['message'], '</p>';
                         //echo '<p>', $row['user_id'], ' ', $row['post_time'], ' ', $row['message'], ' ', $row['link_url'], $row['first_name'], ' ', $row['last_name'], '</p>';
+                        $user_id = $row['user_id'];
                         $first_name = $row['first_name'];
                         $last_name = $row['last_name'];
                         $post_time = $row['post_time'];

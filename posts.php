@@ -6,18 +6,23 @@
         
         include_once "common/header.php";
 
-        include_once 'inc/class.posts.inc.php';
-        $posts = new hoheartPosts($db);
-
-        if (isset($_GET['topic'])):
-            $posts_array = $posts->loadPostsByTopic();
-        elseif (isset($_GET['media'])):
-            $posts_array = $posts->loadPostsByMedia();
-        endif;
+        
 
 ?>
 
     <body>
+        <br>
+        <br>
+        <?php
+            include_once 'inc/class.posts.inc.php';
+            $posts = new hoheartPosts($db);
+
+            if (isset($_GET['topic'])):
+                $posts_array = $posts->loadPostsByTopic();
+            elseif (isset($_GET['media'])):
+                $posts_array = $posts->loadPostsByMedia();
+            endif;
+        ?>
     </body>
     <script src="post_window.js">
     </script>

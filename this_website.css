@@ -59,6 +59,11 @@ body .no-padding {
     color: #c0392b;
 }
 
+.navbar-nav>li>a.profile-image {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,700);
 body {
     background-color: rgb(229, 229, 229);
@@ -458,3 +463,35 @@ body {
 .second-menu-heading {
     color: red;
 }
+
+
+/* Drag and Drop in Profile Picture Upload  */
+
+#dnd_drag {
+    display: none;
+    text-align: center;
+    padding: 1em 0;
+    margin: 1em 0;
+    color: #555;
+    border: 2px dashed #888;
+    border-radius: 7px;
+    cursor: default;
+}
+
+#dnd_drag.hover {
+    border: 2px dashed #000;
+}
+
+#xhr_status,
+#dnd_status {
+    font-size: 90%;
+    font-style: italic;
+}
+
+.s-name {
+    font-size: 27px;
+    font-weight: bold;
+    height: 100px;
+}
+
+.s-photo {}

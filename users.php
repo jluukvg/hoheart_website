@@ -31,6 +31,10 @@
                         header("Location: user_account.php?password=changed");
                         break;
                 }
+            case 'changeProfilePic':
+                $status =  $userObj->uploadProfilePic() ? "changed" : "failed";
+                header("Location: user_account.php?profilepicstatus=$status");;
+                break;
             case 'deleteaccount':
                 $userObj->deleteAccount();
                 break;

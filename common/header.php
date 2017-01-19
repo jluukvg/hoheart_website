@@ -26,6 +26,10 @@
     <link rel="stylesheet" href="liveurl.css" type="text/css" media="screen" />
 
     <!-- PROBANDO -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/0.8.1/cropper.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/0.8.1/cropper.min.js"></script>
+
+
     <link rel="stylesheet" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css">
     <link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One|Oswald|Patua+One" rel="stylesheet">
 
@@ -42,7 +46,16 @@
         list($userID, $first_name, $last_name, $gender) = $users->retrieveAccountInfo();
     
         $_SESSION["user_id"] = $userID;
-
+    
+    
+    
+            //<?php echo $profile_pic_path?
+        
+        // CHECAR EL RELATIVE PATH DE ESTO!
+    
+        $default_profile_pic = 'http://localhost/my_projects/hoheart_website/profile_pics/default/navbar_profile_pic.jpg';
+    
+        $profile_pic_path = 'http://localhost/my_projects/hoheart_website/profile_pics/'.$userID.'/navbar_profile_pic.jpg';
 ?>
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
@@ -61,14 +74,16 @@
                 </ul>
 
                 <ul class="nav navbar-nav navbar-left">
-                    <li><a href="user_account.php" data-toggle="tooltip" data-placement="bottom" title="See or modify your account settings"><span class="glyphicon glyphicon-user"></span>
-                            <strong><?php echo $first_name, " ", $last_name?></strong></a></li>
+                    <li>
+                        <a href="user_account.php" data-toggle="tooltip" data-placement="bottom" title="See or modify your account settings"><img src="<?php echo $profile_pic_path;?>" class="profile-image" onerror="this.src='<?php echo $default_profile_pic;?>'">
+                            <strong><?php echo " ", $first_name, " ", $last_name?></strong></a>
+                    </li>
                 </ul>
 
                 <div class="col-sm-3 col-md-3 pull-right">
-                    <form class="navbar-form" role="search">
+                    <form class="navbar-form" data-toggle="validator" role="search" method="get" action="search.php" id="searchform">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search..." name="srch-term" id="srch-term">
+                            <input type="text" class="form-control" placeholder="Search people..." name="srch-term" id="srch-term" data-toggle="tooltip" data-placement="bottom" title="Look for people by name or email" required>
                             <div class="input-group-btn">
                                 <button class="btn btn-success" type="submit"><i class="glyphicon glyphicon-search"></i></button>
                             </div>

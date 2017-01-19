@@ -15,7 +15,7 @@ class dedaloUsers
     else
     {
       $dsn = "mysql:host=".DB_HOST.";dbname=".DB_NAME;
-      $this->_db = new PDO($dsn, DB_USER, DB_PASS);
+      $this->_db = new PDO($dsn, DB_USER, DB_PASS, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
     }
   }
 
@@ -260,9 +260,73 @@ EMAIL;
       {
          return FALSE; // database error
       }
+  }
+
+  public function uploadProfilePic()
+  {
+      $user_id = $this->retrieveAccountInfo()[0];
+      echo $user_id;
+
+      // __DIR__ gives the current script path
+      include_once __DIR__.'/../vendor/verot/class.upload.php/src/class.upload.php';
       
-      
-      
+      $profiles_dir = __DIR__.'/../profile_pics/'.$user_id.'/';
+
+      $handle = new upload($_FILES['image_field']);
+      if ($handle->uploaded) 
+      {
+        $handle->file_new_name_body   = 'main_profile_pic';
+        $handle->image_min_width      = 180;
+        $handle->image_min_height     = 180;
+        $handle->image_resize         = true;
+        $handle->image_x              = 260;
+        $handle->image_y              = 260;
+        $handle->image_convert        = 'jpg';
+        $handle->file_overwrite = true;
+        $handle->process($profiles_dir);
+          
+        $handle->file_new_name_body   = 'post_profile_pic';
+        $handle->image_min_width      = 180;
+        $handle->image_min_height     = 180;
+        $handle->image_resize         = true;
+        $handle->image_x              = 50;
+        $handle->image_y              = 50;
+        $handle->image_convert        = 'jpg';
+        $handle->file_overwrite = true;
+        $handle->process($profiles_dir);
+          
+        $handle->file_new_name_body   = 'navbar_profile_pic';
+        $handle->image_min_width      = 180;
+        $handle->image_min_height     = 180;
+        $handle->image_resize         = true;
+        $handle->image_x              = 30;
+        $handle->image_y              = 30;
+        $handle->image_convert        = 'jpg';
+        $handle->file_overwrite = true;
+        $handle->process($profiles_dir);
+        
+        $handle->file_new_name_body   = 'search_profile_pic';
+        $handle->image_min_width      = 180;
+        $handle->image_min_height     = 180;
+        $handle->image_resize         = true;
+        $handle->image_x              = 100;
+        $handle->image_y              = 100;
+        $handle->image_convert        = 'jpg';
+        $handle->file_overwrite = true;
+        $handle->process($profiles_dir);
+        if ($handle->processed) 
+        {
+            echo 'image resized';
+            $handle->clean();
+            return TRUE;
+        } 
+        else 
+        {
+            echo 'error : ' . $handle->error;
+            exit;
+            return FALSE;
+        }
+      }
   }
 
   public function accountLogin()

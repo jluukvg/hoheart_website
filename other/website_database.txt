@@ -28,7 +28,10 @@ PRIMARY KEY(media_id));
 
 CREATE TABLE prev_db.followers(
 follower_id INT UNSIGNED, 
-following_id INT UNSIGNED, 
+following_id INT UNSIGNED,
+request_time DATETIME NOT NULL,
+accepted_time DATETIME NOT NULL,
+verified TINYINT DEFAULT 0, 
 PRIMARY KEY (follower_id, following_id));
 
 CREATE TABLE prev_db.posts(
@@ -51,3 +54,29 @@ link_site VARCHAR(1000),
 image_url VARCHAR(1000),
 link_url VARCHAR(1000),
 PRIMARY KEY (extract_id));
+
+CREATE TABLE prev_db.comments(
+comment_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+comment_time DATETIME NOT NULL,
+commenter_id INT UNSIGNED,
+post_id INT UNSIGNED,
+comment_text TEXT,
+PRIMARY KEY (comment_id));
+
+CREATE TABLE prev_db.likes(
+like_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+like_time DATETIME NOT NULL,
+liker_id INT UNSIGNED,
+post_id INT UNSIGNED,
+PRIMARY KEY (like_id));
+
+CREATE TABLE prev_db.notifications(
+notification_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+notification_seen TINYINT DEFAULT 0,
+notification_type_id INT UNSIGNED,
+PRIMARY KEY (notification_id));
+
+CREATE TABLE prev_db.notification_types(
+notification_type_id INT UNSIGNED NOT NULL AUTO_INCREMENT, 
+notification_type varchar(150) NOT NULL,
+PRIMARY KEY(notification_type_id));
