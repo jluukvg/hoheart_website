@@ -495,3 +495,7 @@ body {
 }
 
 .s-photo {}
+.cropping-canvas {
+    max-height: 400px;
+    max-width: auto;
+}

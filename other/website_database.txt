@@ -11,6 +11,7 @@ email VARCHAR(254) NOT NULL,
 password VARCHAR(150) NOT NULL,
 birth DATE NOT NULL,
 gender CHAR(1) NOT NULL,
+privacy TINYINT DEFAULT 0,  // 0 = public, 1 = private
 ver_code VARCHAR(150) NOT NULL,
 verified TINYINT DEFAULT 0,
 setup_time DATETIME NOT NULL,
