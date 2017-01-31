@@ -21,8 +21,12 @@ $profile_pic_path = 'http://localhost/my_projects/hoheart_website/profile_pics/'
             </ul>
         </div>
         <div class="panel-heading">
+            <a href="profile.php?id=<?php echo $user_id?>">
             <img class="[  pull-left ]" src="<?php echo $profile_pic_path;?>" alt="Mouse0270" onerror="this.src='<?php echo $default_profile_pic;?>'" />
-            <h3><?php echo $first_name, ' ', $last_name?></h3>
+                </a>
+            <a href="profile.php?id=<?php echo $user_id?>">
+                <h3><?php echo $first_name, ' ', $last_name?></h3>
+            </a>
             <h5><span>Shared publicly</span> - <span><?php echo $post_time?></span> </h5>
         </div>
         <div class="panel-body">

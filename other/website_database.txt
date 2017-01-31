@@ -73,6 +73,7 @@ PRIMARY KEY (like_id));
 
 CREATE TABLE prev_db.notifications(
 notification_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+user_id INT UNSIGNED NOT NULL,
 notification_seen TINYINT DEFAULT 0,
 notification_type_id INT UNSIGNED,
 PRIMARY KEY (notification_id));

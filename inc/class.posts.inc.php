@@ -163,17 +163,18 @@ class hoheartPosts
         }
     }
     
-    public function loadPostsByTopic($topic_from_account = NULL)
+    public function loadPostsByTopic($topic_from_account = NULL, $profile_id = NULL)
     {
         try {
-                    
-                //echo $_GET['topic'];
+
                 if(isset($_GET['topic'])){
                     $topic = $_GET['topic'];
+                    $userID = NULL;
                 } else{
                     $topic = $topic_from_account;
-                    $userID = $_SESSION["user_id"];       
+                    $userID = $profile_id;          
                 }
+
                 //echo $topic;
                 
                 // Find out how many items are in the table
@@ -289,12 +290,17 @@ class hoheartPosts
         }   
     }
     
-    public function loadPostsByMedia()
+    public function loadPostsByMedia($media_from_account = NULL, $profile_id = NULL)
     {
         try {
-                
-                //echo $_GET['media'];
-                $media = $_GET['media'];
+                if(isset($_GET['media'])){
+                    $media = $_GET['media'];
+                    $userID = NULL;
+                } else{
+                    
+                    $media = $media_from_account;
+                    $userID = $profile_id; 
+                }
                 
                 // Find out how many items are in the table
                 $row_count_sql = "SELECT COUNT(message_id) FROM posts WHERE media_id=:media AND message IS NOT NULL";
@@ -343,16 +349,39 @@ class hoheartPosts
                 WHERE posts.media_id = :media AND posts.message IS NOT NULL
                 ORDER BY posts.post_time DESC
                 LIMIT :limit
+                OFFSET :offset";
+            
+                $sql_user_account = "SELECT posts.message_id, posts.user_id, posts.message, posts.link_url, posts.post_time, users.first_name, users.last_name, extracts.title, extracts.description, extracts.link_site, extracts.image_url
+                FROM posts
+                INNER JOIN users ON posts.user_id = users.user_id
+                INNER JOIN extracts ON posts.link_url = extracts.url
+                WHERE posts.media_id = :media AND posts.user_id = :userID AND
+                posts.message IS NOT NULL
+                ORDER BY posts.post_time DESC
+                LIMIT :limit
                 OFFSET :offset"; 
             
-                $stmt2 = $this->_db->prepare($sql);
+                if(empty($userID)){
+                    
+                    $stmt2 = $this->_db->prepare($sql);
+
+                    // Bind the query params
+                    $stmt2->bindParam(':media', $_GET['media'], PDO::PARAM_STR);
+                    $stmt2->bindParam(':limit', $limit, PDO::PARAM_INT);
+                    $stmt2->bindParam(':offset', $offset, PDO::PARAM_INT);
+                    $stmt2->execute();
+                } else{
+                    //echo $userID;
+                    $stmt2 = $this->_db->prepare($sql_user_account);
             
-                // Bind the query params
-                $stmt2->bindParam(':media', $_GET['media'], PDO::PARAM_STR);
-                $stmt2->bindParam(':limit', $limit, PDO::PARAM_INT);
-                $stmt2->bindParam(':offset', $offset, PDO::PARAM_INT);
-                $stmt2->execute();
-            
+                    // Bind the query params
+                    $stmt2->bindParam(':media', $media, PDO::PARAM_STR);
+                    $stmt2->bindParam(':userID', $userID, PDO::PARAM_STR);
+                    $stmt2->bindParam(':limit', $limit, PDO::PARAM_INT);
+                    $stmt2->bindParam(':offset', $offset, PDO::PARAM_INT);
+                    $stmt2->execute();
+                }
+
                 // Do we have any results?
                 if ($stmt2->rowCount() > 0) {
                     // Define how we want to fetch the results

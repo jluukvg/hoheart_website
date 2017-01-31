@@ -55,5 +55,26 @@ class echoheartInteractions
             echo "No results were found. Try again with a different query.";
         }
     }
+    
+    public function retrieveProfileInfo($profile_id)
+    {
+        $sql = "SELECT first_name, last_name
+                FROM users
+                WHERE user_id = :user_id
+                LIMIT 1";
+        
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindParam(":user_id", $profile_id, PDO::PARAM_STR);
+        $stmt->execute();
+        
+        $row = $stmt->fetch();
+        
+        $profile_first_name = $row['first_name'];
+        $profile_last_name = $row['last_name'];
+        
+        $stmt->closeCursor();
+        
+        return array($profile_first_name, $profile_last_name);
+    }
 }
 ?>

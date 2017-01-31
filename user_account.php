@@ -173,22 +173,22 @@
                                                             <table class="table">
                                                                 <tr>
                                                                     <td>
-                                                                        Articles
+                                                                        <li class="active" style="list-style-type: none;"><a href="#" style="text-decoration:none; color:black;" data-target-id="posts-media-articles">Articles</a></li>
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>
-                                                                        Blogs
+                                                                        <li class="active" style="list-style-type: none;"><a href="#" style="text-decoration:none; color:black;" data-target-id="posts-media-blogs">Blogs</a></li>
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>
-                                                                        Videos
+                                                                        <li class="active" style="list-style-type: none;"><a href="#" style="text-decoration:none; color:black;" data-target-id="posts-media-videos">Videos</a></li>
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>
-                                                                        Podcasts
+                                                                        <li class="active" style="list-style-type: none;"><a href="#" style="text-decoration:none; color:black;" data-target-id="posts-media-podcasts">Podcasts</a></li>
                                                                     </td>
                                                                 </tr>
                                                             </table>
@@ -420,75 +420,103 @@
                                 Movies
                                 <?php
                             $topic = "1"; 
-                            $posts->loadPostsByTopic($topic);
+                            $posts->loadPostsByTopic($topic, $userID);
                         ?>
                             </div>
                             <div class="col-sm-9 col-md-9 well admin-content" id="posts-topics-music">
                                 <?php
                             $topic = "2"; 
-                            $posts->loadPostsByTopic($topic);
+                            $posts->loadPostsByTopic($topic, $userID);
                         ?>
                             </div>
                             <div class="col-sm-9 col-md-9 well admin-content" id="posts-topics-events">
                                 <?php
                             $topic = "3"; 
-                            $posts->loadPostsByTopic($topic);
+                            $posts->loadPostsByTopic($topic, $userID);
                         ?>
                             </div>
                             <div class="col-sm-9 col-md-9 well admin-content" id="posts-topics-food">
                                 <?php
                             $topic = "4"; 
-                            $posts->loadPostsByTopic($topic);
+                            $posts->loadPostsByTopic($topic, $userID);
                         ?>
                             </div>
                             <div class="col-sm-9 col-md-9 well admin-content" id="posts-topics-restaurants">
                                 <?php
                             $topic = "5"; 
-                            $posts->loadPostsByTopic($topic);
+                            $posts->loadPostsByTopic($topic, $userID);
                         ?>
                             </div>
                             <div class="col-sm-9 col-md-9 well admin-content" id="posts-topics-sports">
                                 <?php
                             $topic = "6"; 
-                            $posts->loadPostsByTopic($topic);
+                            $posts->loadPostsByTopic($topic, $userID);
                         ?>
                             </div>
                             <div class="col-sm-9 col-md-9 well admin-content" id="posts-topics-books">
                                 <?php
                             $topic = "7"; 
-                            $posts->loadPostsByTopic($topic);
+                            $posts->loadPostsByTopic($topic, $userID);
                         ?>
                             </div>
                             <div class="col-sm-9 col-md-9 well admin-content" id="posts-topics-fashion">
                                 <?php
                             $topic = "8"; 
-                            $posts->loadPostsByTopic($topic);
+                            $posts->loadPostsByTopic($topic, $userID);
                         ?>
                             </div>
                             <div class="col-sm-9 col-md-9 well admin-content" id="posts-topics-travel">
                                 <?php
                             $topic = "9"; 
-                            $posts->loadPostsByTopic($topic);
+                            $posts->loadPostsByTopic($topic, $userID);
                         ?>
                             </div>
                             <div class="col-sm-9 col-md-9 well admin-content" id="posts-topics-funny">
                                 <?php
                             $topic = "10"; 
-                            $posts->loadPostsByTopic($topic);
+                            $posts->loadPostsByTopic($topic, $userID);
                         ?>
                             </div>
                             <div class="col-sm-9 col-md-9 well admin-content" id="posts-topics-interesting">
                                 <?php
                             $topic = "11"; 
-                            $posts->loadPostsByTopic($topic);
+                            $posts->loadPostsByTopic($topic, $userID);
                         ?>
                             </div>
                             <div class="col-sm-9 col-md-9 well admin-content" id="posts-topics-lifestyle">
                                 <?php
                             $topic = "12"; 
-                            $posts->loadPostsByTopic($topic);
+                            $posts->loadPostsByTopic($topic, $userID);
                         ?>
                             </div>
+
+
+                            <div class="col-sm-9 col-md-9 well admin-content" id="posts-media-articles">
+                                <?php
+                            $media = "4"; 
+                            $posts->loadPostsByMedia($media, $userID);
+                        ?>
+                            </div>
+                            <div class="col-sm-9 col-md-9 well admin-content" id="posts-media-blogs">
+                                <?php
+                            $media = "2"; 
+                            $posts->loadPostsByMedia($media, $userID);
+                        ?>
+                            </div>
+                            <div class="col-sm-9 col-md-9 well admin-content" id="posts-media-videos">
+                                <?php
+                            $media = "1"; 
+                            $posts->loadPostsByMedia($media, $userID);
+                        ?>
+                            </div>
+                            <div class="col-sm-9 col-md-9 well admin-content" id="posts-media-podcasts">
+                                <?php
+                            $media = "3"; 
+                            $posts->loadPostsByMedia($media, $userID);
+                        ?>
+                            </div>
+
+
 
                             <div class="col-sm-9 col-md-9 well admin-content" id="account-basicInformation">
 
