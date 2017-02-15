@@ -24,7 +24,7 @@
                     <div class="thumbnail text-center">
                         <img src="images/tree.jpg">
                         <div class="caption" id="index-logo-caption">
-                            <p>HOHEART</p>
+                            <p>ECHOHEART</p>
                         </div>
                     </div>
                 </div>

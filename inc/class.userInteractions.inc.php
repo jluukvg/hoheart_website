@@ -76,5 +76,67 @@ class echoheartInteractions
         
         return array($profile_first_name, $profile_last_name);
     }
+    
+    public function checkIfFollowing($user_id, $f_user_id)
+    {
+        $sql = "SELECT COUNT(follower_id) AS theCount
+               FROM followers
+               WHERE follower_id=:follower_id AND following_id=:following_id";
+        
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindParam(":follower_id", $user_id, PDO::PARAM_STR);
+        $stmt->bindParam(":following_id", $f_user_id, PDO::PARAM_STR);
+        $stmt->execute();
+        $row = $stmt->fetch();
+        if($row['theCount']!=0){
+            return TRUE;
+        }
+        else{
+            return FALSE;
+        }
+    }
+    
+    public function sendFollowRequest($user_id, $f_user_id)
+    {
+        /*$sql = "SELECT COUNT(follower_id) AS theCount
+               FROM followers
+               WHERE follower_id=:follower_id AND following_id=:following_id";
+        
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindParam(":follower_id", $user_id, PDO::PARAM_STR);
+        $stmt->bindParam(":following_id", $f_user_id, PDO::PARAM_STR);
+        $stmt->execute();
+        $row = $stmt->fetch();
+        if($row['theCount']!=0){
+            return "You already follow that user.";
+        }*/
+        
+        $follow = $this->checkIfFollowing($user_id, $f_user_id);
+        if ($follow == TRUE){
+            return 0;
+        }
+        else{
+            $sql = "INSERT INTO followers(follower_id, following_id, request_time) VALUES(:follower_id, :following_id, NOW())";
+        
+            $stmt = $this->_db->prepare($sql);
+            $stmt->bindParam(":follower_id", $user_id, PDO::PARAM_STR);
+            $stmt->bindParam(":following_id", $f_user_id, PDO::PARAM_STR);
+            $stmt->execute();
+            $stmt->closeCursor();
+        }
+    }
+    
+    public function unfollow($user_id, $f_user_id)
+    {
+        $sql = "DELETE FROM followers WHERE follower_id=:follower_id  AND following_id=:following_id";
+        
+        $stmt = $this->_db->prepare($sql);
+        $stmt->bindParam(":follower_id", $user_id, PDO::PARAM_STR);
+        $stmt->bindParam(":following_id", $f_user_id, PDO::PARAM_STR);
+        $stmt->execute();
+        $stmt->closeCursor();
+    }
+    
+    
 }
 ?>

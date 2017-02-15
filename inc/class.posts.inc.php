@@ -38,6 +38,7 @@ class hoheartPosts
 
          // if no urls in the text just return the text
          $final_text = $post;
+         $url[0] = "EMPTY";
 
       }
 
@@ -101,23 +102,11 @@ class hoheartPosts
 
                 } else {
                     $link_title = "No title found";
-                    $link_description = $row['link_url'];
+                    $link_description = NULL;
                     $image_url = NULL;
                     $link_site = NULL;
                     $link_url = $url;
                 } 
-                
-                $sql = "INSERT INTO `extracts`(`url`, `title`, `description`, `link_site`, `image_url`) VALUES (:url, :title, :description , :link_site, :image_url)";
-        
-                if($stmt = $this->_db->prepare($sql)) {
-                    $stmt->bindParam(":url", $link_url, PDO::PARAM_STR);
-                    $stmt->bindParam(":title", $link_title, PDO::PARAM_STR);
-                    $stmt->bindParam(":description", $link_description, PDO::PARAM_STR);
-                    $stmt->bindParam(":link_site", $link_site, PDO::PARAM_STR);
-                    $stmt->bindParam(":image_url", $image_url, PDO::PARAM_STR);
-                    $stmt->execute();
-                    $stmt->closeCursor();
-                }
             
             } else{
                 $link_url = $url;
@@ -125,11 +114,27 @@ class hoheartPosts
             }
                 
         } else {
-            $link_title = "This URL didn't work";
-            $link_description = $row['link_url'];
-            $image_url = "EMPTY";
-            $link_site = "EMPTY";
-            $link_url = $url;
+            $extracted = $this->checkIfExtracted($url);
+            if (!$extracted){
+                $link_title = "EMPTY";
+                $link_description = "EMPTY";
+                $image_url = "EMPTY";
+                $link_site = "EMPTY";
+                $link_url = $url;
+            }
+        }
+        
+        
+        $sql = "INSERT INTO `extracts`(`url`, `title`, `description`, `link_site`, `image_url`) VALUES (:url, :title, :description , :link_site, :image_url)";
+        
+        if($stmt = $this->_db->prepare($sql)) {
+            $stmt->bindParam(":url", $link_url, PDO::PARAM_STR);
+            $stmt->bindParam(":title", $link_title, PDO::PARAM_STR);
+            $stmt->bindParam(":description", $link_description, PDO::PARAM_STR);
+            $stmt->bindParam(":link_site", $link_site, PDO::PARAM_STR);
+            $stmt->bindParam(":image_url", $image_url, PDO::PARAM_STR);
+            $stmt->execute();
+            $stmt->closeCursor();
         }
         /*echo $link_title . "<br>";
         echo $link_description . "<br>";
@@ -191,7 +196,7 @@ class hoheartPosts
                 //echo "total:$row_count";
                 
                 // How many items to list per page
-                $limit = 10;
+                $limit = 30;
                 //echo " limit:$limit";
                 
                 // How many pages will there be
@@ -222,7 +227,7 @@ class hoheartPosts
                 FROM posts
                 INNER JOIN users ON posts.user_id = users.user_id
                 INNER JOIN extracts ON posts.link_url = extracts.url
-                WHERE posts.topic_id = :topic AND posts.message IS NOT NULL
+                WHERE posts.topic_id = :topic
                 ORDER BY posts.post_time DESC
                 LIMIT :limit
                 OFFSET :offset";
@@ -231,7 +236,7 @@ class hoheartPosts
                 FROM posts
                 INNER JOIN users ON posts.user_id = users.user_id
                 INNER JOIN extracts ON posts.link_url = extracts.url
-                WHERE posts.topic_id = :topic AND posts.user_id = :userID AND posts.message IS NOT NULL
+                WHERE posts.topic_id = :topic AND posts.user_id = :userID
                 ORDER BY posts.post_time DESC
                 LIMIT :limit
                 OFFSET :offset";
@@ -274,6 +279,7 @@ class hoheartPosts
                         $image_url = $row['image_url'];
                         $link_site = $row['link_site'];
                         $link_url = $row['link_url'];
+                        $msg_id = $row['message_id'];
                         
                         include("post_stream.php");
                     }

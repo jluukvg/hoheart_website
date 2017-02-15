@@ -357,7 +357,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        Find Friends
+                                                        Requests
                                                     </td>
                                                 </tr>
                                             </table>

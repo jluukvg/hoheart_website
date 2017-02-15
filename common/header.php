@@ -35,7 +35,7 @@
 
 
     <link rel="stylesheet" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css">
-    <link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One|Oswald|Patua+One" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One|Oswald|Patua+One|Muli|Lora" rel="stylesheet">
 
 </head>
 
@@ -96,7 +96,7 @@
                                 <div class="dropdown-toolbar-actions">
                                     <a href="#">Mark all as read</a>
                                 </div>
-                                <h3 class="dropdown-toolbar-title">Notifications (2)</h3>
+                                <h3 class="dropdown-toolbar-title">Notifications (3)</h3>
                             </div>
                             <!-- /dropdown-toolbar -->
 
@@ -173,7 +173,7 @@
                 <div class="col-sm-3 col-md-3 pull-right">
                     <form class="navbar-form" data-toggle="validator" role="search" method="get" action="search.php" id="searchform">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search people..." name="srch-term" id="srch-term" data-toggle="tooltip" data-placement="bottom" title="Look for people by name or email" required>
+                            <input type="text" class="form-control" placeholder="Find people..." name="srch-term" id="srch-term" data-toggle="tooltip" data-placement="bottom" title="Look for people by name or email" required>
                             <div class="input-group-btn">
                                 <button class="btn btn-success" type="submit"><i class="glyphicon glyphicon-search"></i></button>
                             </div>

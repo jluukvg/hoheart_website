@@ -165,24 +165,51 @@ body {
     margin-right: 15px;
 }
 
-.panel-google-plus > .panel-heading > h3 {
+.panel-google-plus > .panel-heading > a > h3 {
     margin: 0px;
-    font-size: 14px;
-    font-weight: 700;
+    padding-left: 60px;
+    font-size: 20px;
+    font-weight: 500;
+    font-family: "Patua One";
+    text-decoration: none;
+    color: #464646;
 }
 
 .panel-google-plus > .panel-heading > h5 {
     color: rgb(153, 153, 153);
+    padding-left: 60px;
     font-size: 12px;
     font-weight: 400;
 }
 
-.panel-google-plus > .panel-body {
+.panel-google-plus > .text-container > .panel-body {
     padding-top: 0px;
     padding-bottom: 0px;
     font-size: 13px;
+    font-weight: 500;
+    font-family: Lora;
     /*border-bottom-style: solid;
     border-bottom-color: gray;*/
+}
+
+.hideContent {
+    overflow: hidden;
+    line-height: 1.5em;
+    height: 3em;
+}
+
+.showContent {
+    line-height: 1.5em;
+    height: auto;
+}
+
+.show-more {
+    padding: 10px 0;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: Lora;
+    text-decoration: none;
 }
 
 .panel-google-plus > .panel-body > .panel-google-plus-image {
@@ -495,6 +522,7 @@ body {
 }
 
 .s-photo {}
+
 .cropping-canvas {
     max-height: 400px;
     max-width: auto;
